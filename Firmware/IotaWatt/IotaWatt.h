@@ -90,12 +90,20 @@ extern uint16_t deviceVersion;
 
         // Define the hardware pins
 
+/* 
+
+Iotatemp only uses I2C to access a single temp node
+
 #define pin_CS_ADC0 0                       // Define the hardware SPI chip select pins
 #define pin_CS_ADC1 2
+*/
+
 #define pin_CS_SDcard 15
 
 #define pin_I2C_SDA 4                       // I2C for rtc.  Wish it were SPI.
 #define pin_I2C_SCL 5
+
+// only the WeMOS BUILTIN_LED exist
 
 #define redLed 16                           // IoTaWatt overusage of pins
 #define greenLed 0
