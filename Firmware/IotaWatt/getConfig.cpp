@@ -136,8 +136,10 @@ bool configDevice(const char* JsonStr){
   } 
   hasRTC = true;
   VrefVolts = 2.5;
+  /*
   ADC_selectPin[0] = pin_CS_ADC0;
   ADC_selectPin[1] = pin_CS_ADC1;
+  */
   channels = 15;
       
   if(device.containsKey("refvolts")){
