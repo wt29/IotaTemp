@@ -94,6 +94,8 @@ IotaLog histLog(60,4000);                   // history data log  (11 years)
 RTC_PCF8523 rtc;                            // Instance of RTC_PCF8523
 Ticker ticker;
 messageLog msglog;
+DHT12 dht12;
+
 
       // Define filename Strings of system files.          
 

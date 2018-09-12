@@ -23,7 +23,7 @@ void loop()
     }
     ESP.wdtFeed();
     trace(T_LOOP,2,nextChannel);
-    samplePower(nextChannel, 0);
+    // samplePower(nextChannel, 0);
     trace(T_LOOP,2);
     nextCrossMs = lastCrossMs + 490 / int(frequency);
     lastChannel = nextChannel;

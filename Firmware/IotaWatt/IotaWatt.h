@@ -44,6 +44,9 @@
 #include <math.h>
 #include <Ticker.h>
 
+#include <WEMOS_DHT12.h>
+// #define ledpin D4;
+
 #include "IotaLog.h"
 #include "IotaInputChannel.h"
 #include "IotaScript.h"
