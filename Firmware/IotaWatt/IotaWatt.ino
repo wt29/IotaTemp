@@ -108,7 +108,8 @@ const char* ntpServerName = "pool.ntp.org";
 Not required
 uint8_t ADC_selectPin[2] = {pin_CS_ADC0,    // indexable reference for ADC select pins
                             pin_CS_ADC1};  
-                            */
+                            
+*/
 
 
       // Trace context and work area

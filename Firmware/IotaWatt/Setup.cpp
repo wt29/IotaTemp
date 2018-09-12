@@ -26,8 +26,8 @@ void setup()
   pinMode(pin_CS_ADC1,OUTPUT);
   digitalWrite(pin_CS_ADC1,HIGH);
   */
-  pinMode(pin_CS_SDcard,OUTPUT);
-  digitalWrite(pin_CS_SDcard,HIGH);
+  // pinMode(pin_CS_SDcard,OUTPUT);
+  // digitalWrite(pin_CS_SDcard,HIGH);
   
   pinMode(redLed,OUTPUT);
   digitalWrite(redLed,LOW);
@@ -172,7 +172,7 @@ authLoadPwds();
   NewService(timeSync, T_timeSync);
   NewService(statService, T_stats);
   NewService(WiFiService, T_WiFi);
-  NewService(updater, T_UPDATE);
+ // NewService(updater, T_UPDATE);   // No updates happening here
   NewService(dataLog, T_datalog);
   NewService(historyLog, T_history);
   
