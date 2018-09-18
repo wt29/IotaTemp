@@ -4,7 +4,7 @@ This code is completely copied from Bob LeMaire's brilliant IotaWatt.
 
 I'm attempting to modify it to provide a simple WeMOS D1 Mini based stand alone temperature node.
 
-IotaWatt has a whole lot of useful stuff including 
+IotaWatt has a whole lot of useful stuff including all the goodies below.
 
 See the [WiKi](https://github.com/boblemaire/IoTaWatt/wiki) for detailed information concerning installation and use of IoTaWatt. 
 
