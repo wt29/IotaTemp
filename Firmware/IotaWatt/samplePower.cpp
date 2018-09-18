@@ -5,6 +5,7 @@
   *  
   ****************************************************************************************************/
 // void samplePower(int channel, int overSample){
+
 void samplePower(int temp, int humidity) {
   static uint32_t trapTime = 0;
   uint32_t timeNow = millis();
