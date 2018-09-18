@@ -35,8 +35,9 @@ IotaTemp doesn't require this
   //           serverAvailable will be false if there is a request being serviced by
   //           an Iota SERVICE. (GetFeedData)
  
-  // GetTemp();
+  // This, theoretically should sample the DHT
   samplePower(0, 0);
+  
   yield();
   ESP.wdtFeed();
   trace(T_LOOP,3);
