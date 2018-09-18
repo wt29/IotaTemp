@@ -4,10 +4,12 @@
   *  samplePower()  Sample a channel.
   *  
   ****************************************************************************************************/
-void samplePower(int channel, int overSample){
+// void samplePower(int channel, int overSample){
+void samplePower(int temp, int humidity) {
   static uint32_t trapTime = 0;
   uint32_t timeNow = millis();
 
+  /*
   trace(T_POWER,0,channel);
   if( ! inputChannel[channel]->isActive()){
     return;
@@ -25,13 +27,17 @@ void samplePower(int channel, int overSample){
   }
 
          // Currently only voltage and power channels, so return if not one of those.
-     
+   
+  
   if(inputChannel[channel]->_type != channelTypePower) return;
 
          // From here on, dealing with a power channel and associated voltage channel.
 
   trace(T_POWER,1);
+ */
+  int channel = 1;
   IotaInputChannel* Ichannel = inputChannel[channel];
+ /* 
   IotaInputChannel* Vchannel = inputChannel[Ichannel->_vchannel]; 
           
   byte Ichan = Ichannel->_channel;
@@ -47,15 +53,17 @@ void samplePower(int channel, int overSample){
    
         // Invoke high speed sample collection.
         // If it fails, return.
- 
-  if(int rtc = sampleCycle(Vchannel, Ichannel, 1, 0)) {
+ */
+
+  if(int rtc = sampleCycle( Ichannel ) ) {
     trace(T_POWER,2);
     if(rtc == 2){
       Ichannel->setPower(0.0, 0.0);
     }
     return;
   }          
-      
+
+/*      
   int16_t rawV;
   int16_t rawI;  
   int32_t sumV = 0;
@@ -149,9 +157,12 @@ void samplePower(int channel, int overSample){
     }
   }
       // Update with the new power and voltage values.
-
+*/
+  dht12.get();
   trace(T_POWER,5);
-  Ichannel->setPower(_watts, _VA);
+  int _temp = dht12.cTemp;
+  int _humidity = dht12.humidity;
+  Ichannel->setPower( _temp, _humidity);
   trace(T_POWER,9);                                                                               
   return;
 }
@@ -187,7 +198,9 @@ void samplePower(int channel, int overSample){
   *   2 - failure (probably no voltage reference or voltage unplugged during sampling)
   *   
   ****************************************************************************************************/
-  
+  int sampleCycle( IotaInputChannel* Ichannel ){
+
+/*  
   int sampleCycle(IotaInputChannel* Vchannel, IotaInputChannel* Ichannel, int cycles, int overSamples){
 
   int Vchan = Vchannel->_channel;
@@ -207,10 +220,11 @@ void samplePower(int channel, int overSample){
   int16_t lastV;
   int16_t rawI;
   int16_t lastI = 0;
-        
+ */       
   int16_t * VsamplePtr = Vsample;             // -> to sample storage arrays
   int16_t * IsamplePtr = Isample;
-    
+ 
+ /*   
   int16_t crossLimit = cycles * 2 + 1;        // number of crossings in total
   int16_t crossCount = 0;                     // number of crossings encountered
   int16_t crossGuard = 3;                     // Guard against faux crossings (must be >= 2 initially)  
@@ -234,13 +248,12 @@ void samplePower(int channel, int overSample){
   samples = 0;                                        // Start with nothing
 
           // Have at it.
-
+*/
   ESP.wdtFeed();                                     // Red meat for the silicon dog
   WDT_FEED();     
+
+/* 
   do{  
-                      /************************************
-                       *  Sample the Voltage (V) channel  *
-                       ************************************/
                                                
         GPOC = ADC_VselectMask;                            // digitalWrite(ADC_VselectPin, LOW); Select the ADC
 
@@ -283,9 +296,6 @@ void samplePower(int channel, int overSample){
                                                                     
         rawV = (word(*fifoPtr8 & 0x01, *(fifoPtr8+1)) << 3) + (*(fifoPtr8+2) >> 5) - offsetV;
                                              
-                      /************************************
-                       *  Sample the Current (I) channel  *
-                       ************************************/
          
         GPOC = ADC_IselectMask;                             // digitalWrite(ADC_IselectPin, LOW); Select the ADC
   
@@ -351,9 +361,11 @@ void samplePower(int channel, int overSample){
         }   
   } while(crossCount < crossLimit || crossGuard > 0); 
 
-  *VsamplePtr = rawV;                                       
-  *IsamplePtr = (rawI + lastI) >> 1;
-   
+*/
+  int temp;
+  *VsamplePtr = temp;                                       
+ // *IsamplePtr = (rawI + lastI) >> 1;
+ /*  
   trace(T_SAMP,8);
 
   if(samples < ((lastCrossUs - firstCrossUs) * 381 / 10000)){
@@ -377,7 +389,7 @@ void samplePower(int channel, int overSample){
 
   samplesPerCycle = samplesPerCycle * .9 + (samples / cycles) * .1;
   cycleSamples++;
-  
+  */
   return 0;
 }
 
@@ -386,7 +398,7 @@ void samplePower(int channel, int overSample){
 //        readADC(uint8_t channel)
 //
 //**********************************************************************************************
-
+/*
 int readADC(uint8_t channel){ 
   uint32_t align = 0;               // SPI requires out and in to be word aligned                                                                 
   uint8_t ADC_out [4] = {0, 0, 0, 0};
@@ -401,13 +413,14 @@ int readADC(uint8_t channel){
   digitalWrite(ADCselectPin, HIGH);                 // Raise the chip select to deselect and reset
   return (word(ADC_in[1] & 0x3F, ADC_in[2]) >> (14 - ADC_BITS)); // Put the result together and return
 }
-
+*/
 /****************************************************************************************************
  * sampleVoltage() is used to sample just voltage and is also used by the voltage calibration handler.
  * It uses sampleCycle specifying the voltage channel for both channel parameters thus 
  * doubling the number of voltage samples.
  * It returns the voltage corresponding to the supplied calibration factor
  ****************************************************************************************************/
+/*
 float sampleVoltage(uint8_t Vchan, float Vcal){
   IotaInputChannel* Vchannel = inputChannel[Vchan];
   uint32_t sumVsq = 0;
@@ -458,7 +471,7 @@ float getAref(int channel) {
 //        These are diagnostic tools, not currently used.
 //
 //**********************************************************************************************
-
+*/
 void printSamples() {
   Serial.println(samples);
   for(int i=0; i<(samples + 2); i++)
@@ -473,6 +486,7 @@ void printSamples() {
   return;
 }
 
+/*
 String samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift){
   
   int16_t cycles = 1;
@@ -519,5 +533,7 @@ String samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift){
   
   return response;
 }
+
+*/
 
 

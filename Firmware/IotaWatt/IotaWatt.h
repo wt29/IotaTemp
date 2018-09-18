@@ -45,6 +45,7 @@
 #include <Ticker.h>
 
 #include <WEMOS_DHT12.h>
+
 // #define ledpin D4;
 
 #include "IotaLog.h"
@@ -78,6 +79,7 @@ extern IotaLog histLog;
 extern RTC_PCF8523 rtc;
 extern Ticker ticker;
 extern messageLog msglog;
+extern DHT12 dht12;
 
 #define MS_PER_HOUR   3600000UL
 #define SEVENTY_YEAR_SECONDS  2208988800UL
@@ -186,7 +188,7 @@ extern serviceBlock* serviceQueue;     // Head of ordered list of services
       // Can be specified in config.device.aref
       // Voltage adjustments are the values for AC reference attenuation in IotaWatt 2.1.
 
-#define MAXINPUTS 15                          // Compile time input channels, can't be changed easily 
+#define MAXINPUTS 1                           // Compile time input channels, can't be changed easily 
 extern IotaInputChannel* *inputChannel;       // -->s to incidences of input channels (maxInputs entries)
 extern uint8_t  maxInputs;                    // channel limit based on configured hardware (set in Config)
 extern float    VrefVolts;                    // Voltage reference shunt value used to calibrate

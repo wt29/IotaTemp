@@ -68,7 +68,7 @@ void handleRequest(){
   String uri = server.uri();
       
   if(serverOn(authAdmin, F("/status"),HTTP_GET, handleStatus)) return;
-  if(serverOn(authAdmin, F("/vcal"),HTTP_GET, handleVcal)) return;
+ // if(serverOn(authAdmin, F("/vcal"),HTTP_GET, handleVcal)) return;
   if(serverOn(authAdmin, F("/command"), HTTP_GET, handleCommand)) return;
   if(serverOn(authUser, F("/list"), HTTP_GET, printDirectory)) return;
   if(serverOn(authAdmin, F("/config"), HTTP_GET, handleGetConfig)) return;
@@ -489,7 +489,7 @@ void handleStatus(){
   root.printTo(response);
   server.send(200, txtJson_P, response);  
 }
-
+/*
 void handleVcal(){
   trace(T_WEB,1); 
   if( ! (server.hasArg(F("channel")) && server.hasArg("cal"))){
@@ -505,6 +505,7 @@ void handleVcal(){
   root.printTo(response);
   server.send(200, txtJson_P, response);  
 }
+*/
 
 void handleCommand(){
   trace(T_WEB,2); 
@@ -515,6 +516,7 @@ void handleCommand(){
     delay(500);
     ESP.restart();
   }
+  /*
   if(server.hasArg(F("vtphase"))){
     trace(T_WEB,4); 
     uint16_t chan = server.arg("vtphase").toInt();
@@ -529,10 +531,12 @@ void handleCommand(){
     server.send(200, txtPlain_P, samplePhase(refChan, chan, shift));
     return; 
   }
+  */
   if(server.hasArg(F("sample"))){
     trace(T_WEB,5); 
     uint16_t chan = server.arg(F("sample")).toInt();
-    samplePower(chan,0);
+    samplePower( chan,0);
+    // samplePower(chan,0);
     /*
     String response = String(samples) + "\n\r";
     for(int i=0; i<samples; i++){
