@@ -112,7 +112,7 @@
       </p>
     </div> 
     
-                  <!-- *************** Burden configuration ******************--> 
+                  <!-- *************** Burden configuration ******************
     
     <div id="configBurden" class="body color_body" style="display: none">
       <h3>Specify on-board burden resistors</h3>
@@ -127,7 +127,7 @@
         <button class="actionSave" id="burdenSave" onclick="burdenSave()">save</button>
       </p>
     </div>
-    
+    --> 
 
               <!-- *************** Inputs configuration ******************-->  
   
@@ -716,12 +716,12 @@ function refreshInputEdit(){
   var table = EbyId("inputEditTable");
   table.innerHTML = "";
   EbyId("inputChannel").innerHTML = "Configure Input " + inputEditChannel;
-  
+  /*
   var newInput = addTableRow(table, "Burden:", "inputBurden", "span");
   if(config.device.burden[inputEditChannel] == 0) inputBurden.innerHTML = "none configured.";
   else if(Number.isInteger(config.device.burden[inputEditChannel])) inputBurden.innerHTML = config.device.burden[inputEditChannel].toFixed(0) + " ohms";
   else inputBurden.innerHTML = config.device.burden[inputEditChannel].toFixed(1) + " ohms";
-  
+  */
   var inputName = addTableRow(table, "Name: ", "inputName", "input", 12);
   inputName.setAttribute("onblur","inputEditObject.name=this.value.trim(); refreshInputEdit();");
   inputName.value = inputEditObject.name;
