@@ -14,6 +14,7 @@ IoTaWatt forum is [here](https://community.iotawatt.com/)
 
 IotaWatt is an open-hardware/open-source project to produce an accurate, low-cost, multi-channel, and easy to use electric power monitor.  It's based on the ESP8266 IoT platform using MCP3208 12 bit ADCs to sample voltage and current at high sample rates. As a datalogger the device has a real-time clock and SDcard and supports data querry with the integrated web server.
 
+
 * monitors up to 14 circuits  - Only 1 Channel in IotaTemp
 * Accuracy typically within 1%  
 * Local SDcard stores up to 15 years worth of data.
