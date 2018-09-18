@@ -4,7 +4,7 @@ void loop()
 {
 /******************************************************************************
  * The main loop is very simple:
- *  Sample a power channel.
+ *  Get the temp
  *  Yield to the OS and Wifi Server.
  *  Run next dispatchable service if there is one
  *  Yield to the OS and Wifi Server.
@@ -12,7 +12,9 @@ void loop()
  ******************************************************************************/
 
   setLedState();
+/*
 
+IotaTemp doesn't require this
   // ------- If AC zero crossing approaching, go sample a channel.
   static int lastChannel = 0;
   if((uint32_t)(millis() - lastCrossMs) >= (430 / int(frequency))){
@@ -28,11 +30,13 @@ void loop()
     nextCrossMs = lastCrossMs + 490 / int(frequency);
     lastChannel = nextChannel;
   }
-
+*/
   // --------- Give web server a shout out.
   //           serverAvailable will be false if there is a request being serviced by
   //           an Iota SERVICE. (GetFeedData)
-
+ 
+  GetTemp();
+ 
   yield();
   ESP.wdtFeed();
   trace(T_LOOP,3);
