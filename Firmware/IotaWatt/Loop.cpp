@@ -11,7 +11,7 @@ void loop()
  *  Go back, Jack, and do it again.
  ******************************************************************************/
 
-  setLedState();
+  // setLedState();
 /*
 
 IotaTemp doesn't require this
@@ -36,7 +36,8 @@ IotaTemp doesn't require this
   //           an Iota SERVICE. (GetFeedData)
  
   // This, theoretically should sample the DHT
-  samplePower(0, 0);
+  
+  // samplePower(0, 0);
   
   yield();
   ESP.wdtFeed();

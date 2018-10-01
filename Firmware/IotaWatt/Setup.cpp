@@ -172,9 +172,11 @@ authLoadPwds();
   NewService(timeSync, T_timeSync);
   NewService(statService, T_stats);
   NewService(WiFiService, T_WiFi);
+  
  // NewService(updater, T_UPDATE);   // No updates happening here
   NewService(dataLog, T_datalog);
   NewService(historyLog, T_history);
+ log("Services    started");
   
 }  // setup()
 /***************************************** End of Setup **********************************************/

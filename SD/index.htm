@@ -3,14 +3,14 @@
 <html lang="en-US">
 <head>
 <meta charset="utf-8">
-<title>IoTaWatt Configuration app</title>
+<title>IoTaTemp Configuration app</title>
 <link rel="stylesheet" type="text/css" href="/cnfstyle.css">
 
 </head>
 <body onload="setup()">
   
 <div id="outerContainer" class="color_outer">
-  <h3 id="heading">IoTaWatt Power Monitor</h3>
+  <h3 id="heading">IoTaTemp Power Monitor</h3>
   
   <div id="mainMenu" class="menu color_menu" display="block">
     <table id="bigIdeasTable">
@@ -21,7 +21,8 @@
           <span class="dropContent">
             <button class="mainMenuButton" onclick="mainMenuButton(this,configDevice)"
                 title="Specify device name, time-zone, and auto-update class">Device</button>
-            <button class="mainMenuButton" onclick="mainMenuButton(this,configInputs)"
+<!--
+				<button class="mainMenuButton" onclick="mainMenuButton(this,configInputs)"
                 title="Specify the VTs and CTs that are used">Inputs</button>
             <button class="mainMenuButton" onclick="mainMenuButton(this,configOutputs)"
                 title="Define output values for status display and local graphs">Outputs</button>
@@ -29,6 +30,7 @@
                 title="Set new values if stock resistors are modified/removed">Burden Resistors</button>
             <button class="mainMenuButton" onclick="mainMenuButton(this,setPasswords)"
                 title="Set/Reset optional access passwords">Passwords</button>
+-->				
             <button class="mainMenuButton" onclick="mainMenuButton(this,buildWebServer)"
                 title="Specify data export to external servers">Web Server</button>
           </span>
@@ -46,7 +48,7 @@
             <button class="mainMenuButton" onclick="mainMenuButton(this,showMsgs)"
                 title="View recent entries in the message log">Message Log</button>
             <button class="mainMenuButton" onclick="mainMenuButton(this,toolsRestart)"
-                title="Restart the IoTaWatt">Restart</button>
+                title="Restart the IoTaTemp">Restart</button>
        <!-- <button class="mainMenuButton" onclick="mainMenuButton(this,toolsDatalogs)">Datalogs</button>
             <button class="mainMenuButton" onclick="mainMenuButton(this,toolsWiFi)">WIFi</button>
             <button class="mainMenuButton" onclick="mainMenuButton(this,toolsUpdate)">Software Update</button>
@@ -74,7 +76,7 @@
                   <!-- *************** Device configuration ******************-->  
         
     <div id="configDevice" class="body color_body" style="display: none">
-      <h3>Configure IoTaWatt Device</h3>
+      <h3>Configure IoTaTemp Device</h3>
       <table id="deviceTable"></table>
       <p>
         <button class="actionCancel" id="deviceCancel" onclick="deviceCancel()">cancel</button>
@@ -85,20 +87,20 @@
                   <!-- *************** Password configuration ******************-->  
         
     <div id="setPasswords" class="body color_body" style="display: none">
-      <h3>Configure Optional IoTaWatt Passwords</h3>
+      <h3>Configure Optional IoTaTemp Passwords</h3>
       <p>
         The initial configuration places no restrictions on who can modify or otherwise access the device.
       If the device is in a home and connected to a well protected WiFi LAN, that may be adequate to protect
       the integrity of the device and privacy of the data collected.  If the LAN does not provide suitable protection,
       or there is a need to provide port-forward passthough to the internet, access control is recommended.
       </p><p>
-        IoTaWatt supports two levels of authorization using digest password authorization. This isn't the most secure method
+        IoTaTemp supports two levels of authorization using digest password authorization. This isn't the most secure method
         of authorization, nor is it the least.  Given the limitations of an IoT device, you may find it is a reasonable balance
         between exposure and data value.
       </p><p>
         To enable authorization, specify an Admin password.  Once there is an admin password, all configuration and access,
         except for User level acess described below, will require the password to initiate the session.  Be sure to
-        carefully note the password that you set, as IoTaWatt does not store the actual value and it cannot be recovered. There is a
+        carefully note the password that you set, as IoTaTemp does not store the actual value and it cannot be recovered. There is a
         procedure to remove the Admin password, but it involves physically removing the SDcard.
       </p><p>
         The optional User level password is effectively a <i>read only</i> password for use by apps that visualize data. 
@@ -116,11 +118,11 @@
     
     <div id="configBurden" class="body color_body" style="display: none">
       <h3>Specify on-board burden resistors</h3>
-      <p>Burden resistors are internal components that allow IoTaWatt to convert the input current to a voltage that can be measured.
+      <p>Burden resistors are internal components that allow IoTaTemp to convert the input current to a voltage that can be measured.
       The factory supplied burden values were selected to work best with the range of CTs that can be connected and most users will 
       never have a need to modify them or the corresponding values in this menu.</p>
       <p>For the benefit of advanced users that have a need to remove or change the factory resistors, this menu has been provided
-      so that a changed value can be specified and IoTaWatt can calculate the correct current using the new value.</p>
+      so that a changed value can be specified and IoTaTemp can calculate the correct current using the new value.</p>
       <table id="burdenTable"></table>
       <p>
         <button class="actionCancel" id="burdenCancel" onclick="burdenCancel()">cancel</button>
@@ -211,9 +213,9 @@
       <p>Tags are optional key-value pairs of metadata that can be associated with the measurement.
       Because they are indexed, queries on tags perform better than queries on fields.
       </p>
-      <p>When tags are specified, IoTaWatt assumes the first tag is unique to this measurement
+      <p>When tags are specified, IoTaTemp assumes the first tag is unique to this measurement
       and is referenced to determine the time of last measurement during restart recovery. 
-      In that way, an IoTaWatt can maintain context and continuity where multiple data
+      In that way, an IoTaTemp can maintain context and continuity where multiple data
       sources are writing to a single database.</p>
       <p>Tag-values can be a fixed string, or one of the variables $device, $name, $units</p>
       <p>
@@ -237,7 +239,7 @@
             </tr>
           </table>
         </div>
-      <button id="tabStats" class="groupTab" onclick="toggleDisplay('statusStatsDiv')">IoTaWatt Statistics</button>
+      <button id="tabStats" class="groupTab" onclick="toggleDisplay('statusStatsDiv')">IoTaTemp Statistics</button>
         <div id="statusStatsDiv" class="statusDiv" style="display: block;">
            <table width="100%">
             <tr><th width="50%"></th><th width="50%"></th></tr>
@@ -269,9 +271,9 @@
     <!-- ****************************** Restart **********************************--> 
       
     <div id="divRestart" class="body tools color_body" style="display:none">
-      <h3>Reset IoTaWatt!</h3>
+      <h3>Reset IoTaTemp!</h3>
       <p>
-        Press the restart button below to reset the IoTaWatt.<br>
+        Press the restart button below to reset the IoTaTemp.<br>
         Restart can take up to 30 seconds, longer if loading new software.<br>
         After restart, refresh the browser window if this app fails to restart.
       </p>
@@ -307,7 +309,7 @@
         <h3>Deleted logs cannot be recovered!</h3>
         <p>
           This is the only safe way to delete Data Logs.<br>
-          The IoTaWatt will restart.<br>
+          The IoTaTemp will restart.<br>
         </p><p>
           <button onclick="toolsDataLogsDelete('current')">Delete Current Log</button>
            a new log will created beginning now.<br>
@@ -1435,7 +1437,7 @@ function checkDevice(){
       nameChange = true;
       var obj = EbyId("deviceName");
       obj.parentNode.appendChild(document.createElement("BR"));
-      obj.parentNode.appendChild(document.createTextNode("Name changed, IoTaWatt will restart on Save."));
+      obj.parentNode.appendChild(document.createTextNode("Name changed, IoTaTemp will restart on Save."));
       obj.parentNode.appendChild(document.createElement("BR"));
       obj.parentNode.appendChild(document.createTextNode("Then restart app at " + config.device.name + ".local"));
     }
