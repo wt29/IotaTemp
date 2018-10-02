@@ -37,7 +37,7 @@ IotaTemp doesn't require this
  
   // This, theoretically should sample the DHT
   
-  // samplePower(0, 0);
+  samplePower(0, 0);
   
   yield();
   ESP.wdtFeed();

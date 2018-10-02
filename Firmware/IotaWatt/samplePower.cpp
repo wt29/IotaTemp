@@ -63,6 +63,7 @@ void samplePower(int temp, int humidity) {
     }
     return;
   }          
+ log("Checkpoint Golf");
 
 /*      
   int16_t rawV;
@@ -160,11 +161,16 @@ void samplePower(int temp, int humidity) {
       // Update with the new power and voltage values.
 */
   dht12.get();
-  trace(T_POWER,5);
-  int _temp = dht12.cTemp;
-  int _humidity = dht12.humidity;
-  Ichannel->setPower( _temp, _humidity);
-  trace(T_POWER,9);                                                                               
+
+  log("Checkpoint Hotel");
+
+  // trace(T_POWER,5);
+  float _temp = dht12.cTemp;
+  float _humidity = dht12.humidity;
+  log("datalog Temp %f Humidity %f " , _temp, _humidity ) ;
+  // Ichannel->setPower( _temp, _humidity);
+  
+  // trace(T_POWER,9);                                                                               
   return;
 }
 
@@ -222,6 +228,8 @@ void samplePower(int temp, int humidity) {
   int16_t rawI;
   int16_t lastI = 0;
  */       
+  log("Checkpint Charlie.");
+
   int16_t * VsamplePtr = Vsample;             // -> to sample storage arrays
   int16_t * IsamplePtr = Isample;
  
@@ -250,8 +258,12 @@ void samplePower(int temp, int humidity) {
 
           // Have at it.
 */
+ log("Checkpoint Delta");
+
   ESP.wdtFeed();                                     // Red meat for the silicon dog
   WDT_FEED();     
+
+log("Checkpoint Echo");
 
 /* 
   do{  
@@ -364,7 +376,9 @@ void samplePower(int temp, int humidity) {
 
 */
   int temp;
-  *VsamplePtr = temp;                                       
+  *VsamplePtr = temp;       
+  log("Checkpoint Foxtrot");
+                                
  // *IsamplePtr = (rawI + lastI) >> 1;
  /*  
   trace(T_SAMP,8);

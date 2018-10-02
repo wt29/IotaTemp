@@ -113,7 +113,7 @@ Iotatemp only uses I2C to access a single temp node
 #define redLed 16                           // IoTaWatt overusage of pins
 #define greenLed 0
 
-extern uint8_t ADC_selectPin[2];            // indexable reference for ADC select pins
+// extern uint8_t ADC_selectPin[2];            // indexable reference for ADC select pins
 
       // Trace context and work area
 
