@@ -41,8 +41,8 @@ boolean getConfig(void){
   
   //************************************** Process misc first level stuff **************************
   
-  delete[] updateClass;
-  updateClass = charstar(Config["update"] | "NONE");
+  // delete[] updateClass;
+  // updateClass = charstar(Config["update"] | "NONE");
 
   localTimeDiff = Config["timezone"].as<signed int>() | 0;; 
 

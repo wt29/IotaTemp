@@ -196,6 +196,7 @@ uint8_t  ledCount;                           // Current index into cycle
 
       // ****************************** Firmware update ****************************
       
+/*  Don't want it updating from Bob's site
 const char* updateURL = "iotawatt.com";
 const char* updatePath = "/firmware/iotaupdt.php";
 char*    updateClass = nullptr;              // NONE, MAJOR, MINOR, BETA, ALPHA, TEST    
@@ -205,6 +206,7 @@ const uint8_t publicKey[32] PROGMEM = {
                         0x3f, 0x20, 0x5a, 0x78, 0x22, 0x0c, 0xbc, 0x78,
                         0x2b, 0xe6, 0x28, 0x5a, 0x21, 0x9c, 0xb7, 0xf3
                         }; 
+*/
 
 const char hexcodes_P[] PROGMEM = "0123456789abcdef";
 const char base64codes_P[] PROGMEM = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";  
