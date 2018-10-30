@@ -1,5 +1,5 @@
 
-#include "IotaWatt.h"
+#include "IotaTemp.h"
 
 void getSamples(){ //(struct serviceBlock* _serviceBlock){
   // trace T_GFD

@@ -19,7 +19,7 @@
  * real or virtual, that are (or were) in the currLog.
  * 
  **********************************************************************************************/
-#include "IotaWatt.h"
+#include "IotaTemp.h"
 #define GapFill 600           // Fill in gaps of less than this seconds 
       
 uint32_t historyLog(struct serviceBlock* _serviceBlock){

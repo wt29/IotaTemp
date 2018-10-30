@@ -1,4 +1,4 @@
-#include "IotaWatt.h"
+#include "IotaTemp.h"
   
   /***************************************************************************************************
   *  samplePower()  Sample a channel.

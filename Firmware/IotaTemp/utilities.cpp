@@ -1,4 +1,4 @@
-#include "IotaWatt.h"
+#include "IotaTemp.h"
 
 /**************************************************************************************************
  * Case insensitive string compare.  Works just like strcmp() just case insensitive 
