@@ -19,7 +19,7 @@
  * As with all of the SERVICES, it has a  single function call and is implimented as state machine.
  * Services should try not to execute for more than a few milliseconds at a time.
  **********************************************************************************************/
- #include "IotaWatt.h"
+ #include "IotaTemp.h"
  #define GapFill 600           // Fill in gaps of less than this seconds 
        
  uint32_t dataLog(struct serviceBlock* _serviceBlock){

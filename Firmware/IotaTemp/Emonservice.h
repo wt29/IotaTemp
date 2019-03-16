@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IotaWatt.h"
+#include "IotaTemp.h"
 #include "xbuf.h"
 
 String bin2hex(const uint8_t* in, size_t len);

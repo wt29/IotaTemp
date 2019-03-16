@@ -1,4 +1,4 @@
-#include "IotaWatt.h"
+#include "IotaTemp.h"
 
 #define graphDir "graphs"
 String hashName(const char* name);

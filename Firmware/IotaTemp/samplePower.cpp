@@ -1,4 +1,4 @@
-#include "IotaWatt.h"
+#include "IotaTemp.h"
   
   /***************************************************************************************************
   *  samplePower()  Sample a channel.
@@ -160,11 +160,15 @@ void samplePower(int temp, int humidity) {
       // Update with the new power and voltage values.
 */
   dht12.get();
-  trace(T_POWER,5);
-  int _temp = dht12.cTemp;
-  int _humidity = dht12.humidity;
-  Ichannel->setPower( _temp, _humidity);
-  trace(T_POWER,9);                                                                               
+
+  // trace(T_POWER,5);
+  float _temp = dht12.cTemp;
+  float _humidity = dht12.humidity;
+  log("datalog Temp %f Humidity %f " , _temp, _humidity ) ;
+  
+  //   Ichannel->setPower( _temp, _humidity);
+  
+  // trace(T_POWER,9);                                                                               
   return;
 }
 
@@ -364,7 +368,8 @@ void samplePower(int temp, int humidity) {
 
 */
   int temp;
-  *VsamplePtr = temp;                                       
+  *VsamplePtr = temp;       
+                                
  // *IsamplePtr = (rawI + lastI) >> 1;
  /*  
   trace(T_SAMP,8);
