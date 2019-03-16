@@ -67,7 +67,7 @@ uint32_t updater(struct serviceBlock* _serviceBlock) {
       request->setReqHeader("USER_AGENT","IotaWatt");
       request->setReqHeader("X_STA_MAC", WiFi.macAddress().c_str());
       request->setReqHeader("X-UPDATE-CLASS", updateClass);
-      request->setReqHeader("X_CURRENT_VERSION", IOTAWATT_VERSION);
+      request->setReqHeader("X_CURRENT_VERSION", IOTATEMP_VERSION);
       if( ! request->send()){
         request->abort();
         HTTPrequestFree++;
@@ -101,7 +101,7 @@ uint32_t updater(struct serviceBlock* _serviceBlock) {
       updateVersion = request->responseText();
       delete request;
       request = nullptr;
-      if(strcmp(updateVersion.c_str(), IOTAWATT_VERSION) == 0){
+      if(strcmp(updateVersion.c_str(), IOTATEMP_VERSION) == 0){
         if( ! upToDate){
           log("Updater: Auto-update is current for class %s.", updateClass);
           upToDate = true;
@@ -109,7 +109,7 @@ uint32_t updater(struct serviceBlock* _serviceBlock) {
         state = checkAutoUpdate;
         return 1;
       }
-      log("Updater: Update from %s to %s", IOTAWATT_VERSION, updateVersion.c_str());
+      log("Updater: Update from %s to %s", IOTATEMP_VERSION, updateVersion.c_str());
       state = createFile;
       return 1;
     }

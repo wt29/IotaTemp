@@ -89,9 +89,9 @@ void setup()
 
   //**************************************** Display software version *********************************
 
-  log("Version %s", IOTAWATT_VERSION);
+  log("Version %s", IOTATEMP_VERSION);
 
-  copyUpdate(String(IOTAWATT_VERSION));
+  copyUpdate(String(IOTATEMP_VERSION));
   
   //**************************************** Display the trace ****************************************
 

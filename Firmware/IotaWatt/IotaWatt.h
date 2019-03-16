@@ -20,6 +20,7 @@
    
 ***********************************************************************************/
 #define IOTAWATT_VERSION "02_03_13"
+#define IOTATEMP_VERSION "00_00_03"
 
 #define PRINT(txt,val) Serial.print(txt); Serial.print(val);      // Quick debug aids
 #define PRINTL(txt,val) Serial.print(txt); Serial.println(val);

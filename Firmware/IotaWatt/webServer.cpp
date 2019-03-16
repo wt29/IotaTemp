@@ -389,7 +389,7 @@ void handleStatus(){
     trace(T_WEB,14);
     stats.set(F("stack"),ESP.getFreeHeap());
     trace(T_WEB,14);
-    stats.set(F("version"),IOTAWATT_VERSION);
+    stats.set(F("version"),IOTATEMP_VERSION);
     trace(T_WEB,14);
     stats.set(F("frequency"),frequency);
     trace(T_WEB,14);
