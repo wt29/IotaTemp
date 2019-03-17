@@ -43,9 +43,9 @@ Ticker ticker;
 messageLog msglog;
 DHT12 dht12;
 
+Adafruit_ST7735 tft = Adafruit_ST7735( D4, D3, -1);
 
-      // Define filename Strings of system files.          
-
+// Define filename Strings of system files.          
 char* deviceName;             
 const char* IotaLogFile = "/IotaWatt/IotaLog";
 const char* historyLogFile = "/IotaWatt/histLog";
