@@ -166,7 +166,7 @@ void samplePower(int temp, int humidity) {
   float _humidity = dht12.humidity;
   log("datalog Temp %f Humidity %f " , _temp, _humidity ) ;
   
-  //   Ichannel->setPower( _temp, _humidity);
+  Ichannel->setPower( _temp, _humidity);
   
   // trace(T_POWER,9);                                                                               
   return;

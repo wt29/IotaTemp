@@ -19,7 +19,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.  
    
 ***********************************************************************************/
-#define IOTAWATT_VERSION "02_03_13"
+#define IOTATEMP_VERSION "00_00_01"
+// #define IOTAWATT_VERSION "02_03_13"
 
 #define PRINT(txt,val) Serial.print(txt); Serial.print(val);      // Quick debug aids
 #define PRINTL(txt,val) Serial.print(txt); Serial.println(val);
@@ -45,6 +46,8 @@
 #include <Ticker.h>
 
 #include <WEMOS_DHT12.h>
+#include <Adafruit_GFX.h>    	// Core graphics library
+#include <Adafruit_ST7735.h>	// Hardware-specific library
 
 // #define ledpin D4;
 
@@ -80,6 +83,8 @@ extern RTC_PCF8523 rtc;
 extern Ticker ticker;
 extern messageLog msglog;
 extern DHT12 dht12;
+extern Adafruit_ST7735 tft;
+// extern Adafruit_ST7735 tft = Adafruit_ST7735( D4, D3, -1);
 
 #define MS_PER_HOUR   3600000UL
 #define SEVENTY_YEAR_SECONDS  2208988800UL
@@ -108,7 +113,7 @@ Iotatemp only uses I2C to access a single temp node
 #define pin_I2C_SDA 4                       // I2C for rtc.  Wish it were SPI.
 #define pin_I2C_SCL 5
 
-// only the WeMOS BUILTIN_LED exist
+// only the WeMOS BUILTIN_LED exists
 
 #define redLed 16                           // IoTaWatt overusage of pins
 #define greenLed 0
@@ -162,8 +167,8 @@ extern traceUnion traceEntry;
 
       // ADC descriptors
 
-#define ADC_BITS 12
-#define ADC_RANGE 4096      // 2^12
+// #define ADC_BITS 12
+// #define ADC_RANGE 4096      // 2^12
 
 extern uint32_t lastCrossMs;           // Timestamp at last zero crossing (ms) (set in samplePower)
 extern uint32_t nextCrossMs;           // Time just before next zero crossing (ms) (computed in Loop)
