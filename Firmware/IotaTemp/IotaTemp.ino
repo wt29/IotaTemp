@@ -31,7 +31,7 @@
  * 
  *****************************************************************************************************/
 
-      // Define instances of major classes to be used
+// Define instances of major classes to be used
 
 WiFiClient WifiClient;
 WiFiManager wifiManager;
@@ -42,7 +42,6 @@ RTC_PCF8523 rtc;                            // Instance of RTC_PCF8523
 Ticker ticker;
 messageLog msglog;
 DHT12 dht12;
-
 Adafruit_ST7735 tft = Adafruit_ST7735( D4, D3, -1);
 
 // Define filename Strings of system files.          
@@ -143,7 +142,10 @@ uint8_t  ledCount;                           // Current index into cycle
 
       // ****************************** Firmware update ****************************
       
-/*  Don't want it updating from Bob's site
+/*  
+
+Don't want it updating from Bob's site
+
 const char* updateURL = "iotawatt.com";
 const char* updatePath = "/firmware/iotaupdt.php";
 char*    updateClass = nullptr;              // NONE, MAJOR, MINOR, BETA, ALPHA, TEST    

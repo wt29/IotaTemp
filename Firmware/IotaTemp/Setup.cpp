@@ -116,6 +116,12 @@ void setup()
 
 authLoadPwds();  
 
+//******************  Setup the TFT 
+tft.initR(INITR_144GREENTAB);
+  tft.setTextWrap(false); 		// Allow text to run off right edge
+  tft.setRotation( 1 );			// Portrait mode
+  tft.fillScreen(ST7735_BLACK);
+
 //*************************************** Start the WiFi  connection *****************************
   
   WiFi.setAutoConnect(true);
