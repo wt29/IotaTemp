@@ -1,6 +1,5 @@
 #include "IotaTemp.h"
 
-
 String formatHex(uint32_t data);
 void dropDead(void);
 void dropDead(const char*);
