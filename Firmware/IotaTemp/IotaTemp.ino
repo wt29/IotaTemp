@@ -50,7 +50,6 @@ const char* IotaLogFile = "/IotaWatt/IotaLog";
 const char* historyLogFile = "/IotaWatt/histLog";
 const char* IotaMsgLog = "/IotaWatt/IotaMsgs.txt";
 const char* ntpServerName = "pool.ntp.org";
-
                        
 /*
 Not required
@@ -59,24 +58,23 @@ uint8_t ADC_selectPin[2] = {pin_CS_ADC0,    // indexable reference for ADC selec
                             
 */
 
-
-      // Trace context and work area
+// Trace context and work area
 
 traceUnion traceEntry;
 
-      /**************************************************************************************************
-       * Core dispatching parameters - There's a lot going on, but the steady rhythm is sampling the
-       * power channels, and that has to be done on their schedule - the AC frequency.  During sampling,
-       * the time (in ms) of the last zero crossing is saved here.  Upon return to "Loop", the estimated
-       * time just before the next crossing is computed.  That's when samplePower will be called again.
-       * We try to run everything else during the half-wave intervals between power sampling.  The next 
-       * channel to be sampled is also kept here to complete the picture.  
-       **************************************************************************************************/
+/**************************************************************************************************
+* Core dispatching parameters - There's a lot going on, but the steady rhythm is sampling the
+* power channels, and that has to be done on their schedule - the AC frequency.  During sampling,
+* the time (in ms) of the last zero crossing is saved here.  Upon return to "Loop", the estimated
+* time just before the next crossing is computed.  That's when samplePower will be called again.
+* We try to run everything else during the half-wave intervals between power sampling.  The next 
+* channel to be sampled is also kept here to complete the picture.  
+**************************************************************************************************/
        
 uint32_t lastCrossMs = 0;             // Timestamp at last zero crossing (ms) (set in samplePower)
 uint32_t nextCrossMs = 0;             // Time just before next zero crossing (ms) (computed in Loop)
 
-      // Various queues and lists of resources.
+// Various queues and lists of resources.
 
 serviceBlock* serviceQueue;           // Head of active services list in order of dispatch time.       
 IotaInputChannel* *inputChannel;      // -->s to incidences of input channels (maxInputs entries) 
@@ -86,11 +84,11 @@ ScriptSet* outputs;                   // -> scriptSet for output channels
 uint16_t  deviceVersion = 0;
 float     VrefVolts = 2.5;            // Voltage reference shunt value used to calibrate
 
-      // ****************************************************************************
-      // statService maintains current averages of the channel values
-      // so that current values can be displayed by web clients
-      // statService runs at low frequency but is reved up by the web server 
-      // handlers if the statistics are used.
+// ****************************************************************************
+// statService maintains current averages of the channel values
+// so that current values can be displayed by web clients
+// statService runs at low frequency but is reved up by the web server 
+// handlers if the statistics are used.
 
 float   frequency = 55;                  // Split the difference to start
 float   samplesPerCycle = 550;           // Here as well
@@ -100,7 +98,7 @@ float    heapMs = 0;                      // heap size * milliseconds for weight
 uint32_t heapMsPeriod = 0;                // total ms measured above.
 IotaLogRecord statRecord;                 // Maintained by statService with real-time values
 
-      // ****************************** SDWebServer stuff ****************************
+// ****************************** SDWebServer stuff ****************************
 
 #define DBG_OUTPUT_PORT Serial
 ESP8266WebServer server(80);
@@ -116,13 +114,12 @@ uint8_t*          userH1 = nullptr;       // H1 digest md5("user":"user":passwor
 authSession*      authSessions = nullptr; // authSessions list head;
 uint16_t          authTimeout = 600;      // Timeout interval of authSession in seconds;   
  
-
-      // ************************** HTTP concurrent request semaphore *************************
+// ************************** HTTP concurrent request semaphore *************************
 
 int16_t  HTTPrequestMax = 2;      // Maximum number of concurrent HTTP requests        
 int16_t  HTTPrequestFree = 2;     // Request semaphore 
 
-      // ****************************** Timing and time data **********************************
+// ****************************** Timing and time data **********************************
 
 int      localTimeDiff = 0;                  // Hours from UTC 
 uint32_t programStartTime = 0;               // Time program started (UnixTime)
@@ -140,7 +137,7 @@ bool     RTCrunning = false;
 char     ledColor[12];                       // Pattern to display led, each char is 500ms color - R, G, Blank
 uint8_t  ledCount;                           // Current index into cycle
 
-      // ****************************** Firmware update ****************************
+// ****************************** Firmware update ****************************
       
 /*  
 
@@ -160,7 +157,7 @@ const uint8_t publicKey[32] PROGMEM = {
 const char hexcodes_P[] PROGMEM = "0123456789abcdef";
 const char base64codes_P[] PROGMEM = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";  
 
-      // ************************ ADC sample pairs ************************************
+// ************************ ADC sample pairs ************************************
  
 int16_t   samples = 0;                              // Number of samples taken in last sampling
 int16_t   Vsample [MAX_SAMPLES];                    // voltage/current pairs during sampling
