@@ -1,6 +1,5 @@
 #include "IotaTemp.h"
 
-
 String formatHex(uint32_t data);
 void dropDead(void);
 void dropDead(const char*);
@@ -115,6 +114,12 @@ void setup()
 //************************************* Load passwords *******************************************
 
 authLoadPwds();  
+
+//******************  Setup the TFT 
+tft.initR(INITR_144GREENTAB);
+  tft.setTextWrap(false); 		// Allow text to run off right edge
+  tft.setRotation( 1 );			// Portrait mode
+  tft.fillScreen(ST7735_BLACK);
 
 //*************************************** Start the WiFi  connection *****************************
   
