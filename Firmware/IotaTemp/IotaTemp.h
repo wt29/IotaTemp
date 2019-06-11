@@ -19,7 +19,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.  
    
 ***********************************************************************************/
-#define IOTATEMP_VERSION "00_00_01"
+#define IOTATEMP_VERSION "00_00_02"
 // #define IOTAWATT_VERSION "02_03_13"
 
 #define PRINT(txt,val) Serial.print(txt); Serial.print(val);      // Quick debug aids
