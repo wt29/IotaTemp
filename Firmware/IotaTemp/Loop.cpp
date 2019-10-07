@@ -179,6 +179,8 @@ void logTrace(void){
 }
 
 void TFTUpdate( void ){
+  DateTime now = DateTime(rtc.now() + (localTimeDiff * 3600));
+  
   tft.fillScreen(ST7735_BLACK);
   tft.setCursor(0, 0);
   tft.setTextSize(2);
@@ -200,15 +202,12 @@ void TFTUpdate( void ){
   
   tft.setTextSize(1);
   tft.setTextColor(ST7735_WHITE);
-// #ifdef RTC
-//  tft.print( " Time:" );
-//  tft.println( timeStr );
-// #endif
-/*  tft.print(" ");
-  tft.print(now.hour(), DEC);
+  tft.print( " Time:" );
+  tft.setTextColor(ST7735_GREEN);
+  tft.print(now.hour());
   tft.print(":");
-  tft.println(now.minute(), DEC);
-*/  
+  tft.println(now.minute());
+  tft.setTextColor(ST7735_WHITE);
   tft.print(" Node:");
   tft.setTextColor(ST7735_GREEN);
   tft.println( deviceName );

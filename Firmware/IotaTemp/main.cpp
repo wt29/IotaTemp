@@ -38,7 +38,7 @@ WiFiManager wifiManager;
 DNSServer dnsServer;    
 IotaLog currLog(5,400);                     // current data log  (1.1 years) 
 IotaLog histLog(60,4000);                   // history data log  (11 years)  
-RTC_PCF8523 rtc;                            // Instance of RTC_PCF8523
+RTC_DS1307 rtc;                             // Instance of RTC_PCF8523
 Ticker ticker;
 messageLog msglog;
 DHT12 dht12;

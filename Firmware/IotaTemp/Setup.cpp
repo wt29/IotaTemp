@@ -62,7 +62,8 @@ void setup()
   Wire.requestFrom(PCF8523_ADDRESS, 1);
   uint8_t Control_3 = Wire.read();
   
-  if(rtc.initialized()){
+//  if(rtc.initialized()){
+  if(rtc.isrunning()){
     timeRefNTP = rtc.now().unixtime() + SEVENTY_YEAR_SECONDS;
     timeRefMs = millis();
     RTCrunning = true;
