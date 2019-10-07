@@ -1,55 +1,110 @@
 {
 	"format": 2,
-	"timezone": 0,
+	"timezone": "10",
 	"update": "MAJOR",
 	"device": {
-		"name": "IotaWatt",
+		"name": "IotaTemp",
 		"version": 3,
-		"channels": "15",
-		"burden": [
-			0,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24,
-			24
-		]
+		"channels": "1"
 	},
 	"inputs": [
 		{
 			"channel": 0,
-			"name": "Voltage",
-			"type": "VT",
-			"model": "generic240V",
-			"phase": 2,
-			"cal": 23
+			"name": "Temperature",
+			"type": "DHT12",
+			"model": "DHT12"
 		},
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
-		null,
 		null
 	],
 	"outputs": [],
 	"server": {
-		"type": "none"
+		"type": "emoncms",
+		"revision": 2,
+		"node": "IotaTemp",
+		"postInterval": 10,
+		"bulksend": 1,
+		"url": "http://ubuntuemon.cloudapp.net",
+		"apikey": "ad0c0c29c83ec863c8b600151c3da1c5",
+		"user": "",
+		"pwd": "",
+		"outputs": [
+			{
+				"name": "1",
+				"units": "Watts",
+				"script": "@0"
+			},
+			{
+				"name": 2,
+				"script": "@1",
+				"units": ""
+			},
+			{
+				"name": 3,
+				"script": "@2",
+				"units": ""
+			},
+			{
+				"name": 4,
+				"script": "@3",
+				"units": ""
+			},
+			{
+				"name": 5,
+				"script": "@4",
+				"units": ""
+			},
+			{
+				"name": 6,
+				"script": "@5",
+				"units": ""
+			},
+			{
+				"name": 7,
+				"script": "@6",
+				"units": ""
+			},
+			{
+				"name": 8,
+				"script": "@7",
+				"units": ""
+			},
+			{
+				"name": 9,
+				"script": "@8",
+				"units": ""
+			},
+			{
+				"name": 10,
+				"script": "@9",
+				"units": ""
+			},
+			{
+				"name": 11,
+				"script": "@10",
+				"units": ""
+			},
+			{
+				"name": 12,
+				"script": "@11",
+				"units": ""
+			},
+			{
+				"name": 13,
+				"script": "@12",
+				"units": ""
+			},
+			{
+				"name": 14,
+				"script": "@13",
+				"units": ""
+			},
+			{
+				"name": 15,
+				"script": "@14",
+				"units": ""
+			}
+		],
+		"userid": "",
+		"begdate": null
 	}
 }
