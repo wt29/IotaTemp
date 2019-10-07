@@ -2,11 +2,11 @@
 #define samplePower_h
 
 void    samplePower(int temp, int humidity);
-int     sampleCycle(IotaInputChannel* Vchannel );
-// int     sampleCycle(IotaInputChannel* Vchannel, IotaInputChannel* Ichannel, int cycles, int overSamples);
+int     sampleCycle(IotaInputChannel* tchannel );
+// int     sampleCycle(IotaInputChannel* tchannel, IotaInputChannel* Ichannel, int cycles, int overSamples);
 // float   getAref(int channel);
 // int     readADC(uint8_t channel);
-// float   sampleVoltage(uint8_t Vchan, float Vcal);
+// float   sampleTemperature(uint8_t Vchan, float Vcal);
 // String  samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift);
 void    printSamples();
 

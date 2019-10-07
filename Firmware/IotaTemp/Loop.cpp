@@ -1,5 +1,5 @@
 #include "IotaTemp.h"
- 
+
 void loop()
 {
 /******************************************************************************
@@ -36,9 +36,12 @@ IotaTemp doesn't require this
   //           an Iota SERVICE. (GetFeedData)
  
   // This, theoretically should sample the DHT
-  
-  samplePower(0, 0);
-  
+  if ( ( millis() - timeNow ) > loopTime ) {
+   timeNow = millis();
+   // log("Ready to sample power");
+   samplePower(0, 0);
+   TFTUpdate();
+  }
   yield();
   ESP.wdtFeed();
   trace(T_LOOP,3);
@@ -173,4 +176,60 @@ void logTrace(void){
   }
   line.remove(line.length()-1);  
   log("Trace: %s", line.c_str());
+}
+
+void TFTUpdate( void ){
+  tft.fillScreen(ST7735_BLACK);
+  tft.setCursor(0, 0);
+  tft.setTextSize(2);
+  tft.setTextColor(0x006F);
+  tft.println(" IoT Temp");
+  tft.println("");
+  tft.setTextColor(ST7735_WHITE);
+  tft.print(" Tmp " );
+  tft.setTextColor(ST7735_GREEN);
+  // #ifdef CELSIUS  // todo
+  // tft.println(TempC);
+  // #else
+  tft.println(_temp);
+  // #endif
+  tft.setTextColor(ST7735_WHITE);
+  tft.print(" R/H ");
+  tft.setTextColor(ST7735_GREEN);
+  tft.println(_humidity);
+  
+  tft.setTextSize(1);
+  tft.setTextColor(ST7735_WHITE);
+// #ifdef RTC
+//  tft.print( " Time:" );
+//  tft.println( timeStr );
+// #endif
+/*  tft.print(" ");
+  tft.print(now.hour(), DEC);
+  tft.print(":");
+  tft.println(now.minute(), DEC);
+*/  
+  tft.print(" Node:");
+  tft.setTextColor(ST7735_GREEN);
+  tft.println( deviceName );
+
+  if (WiFi.status() != WL_CONNECTED ) {
+   tft.setTextColor(ST7735_RED);
+   tft.println("");
+   tft.print(" Error:");
+   tft.setTextColor(ST7735_GREEN);
+   tft.println("No Connection");
+  
+  }
+  else
+  {
+   tft.setTextColor(ST7735_WHITE);
+   tft.print(" SSID:" );
+   tft.setTextColor(ST7735_GREEN);
+   tft.println( WiFi.SSID() );
+   tft.setTextColor(ST7735_WHITE);
+   tft.print("   IP:" );
+   tft.setTextColor(ST7735_GREEN);
+   tft.println( WiFi.localIP() );
+  }
 }

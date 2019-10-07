@@ -403,10 +403,11 @@ void handleStatus(){
       if(inputChannel[i]->isActive()){
         JsonObject& channelObject = jsonBuffer.createObject();
         channelObject.set(F("channel"),inputChannel[i]->_channel);
-        if(inputChannel[i]->_type == channelTypeVoltage){
+        if(inputChannel[i]->_type == channelTypeTemperature){
           channelObject.set(F("Vrms"),statRecord.accum1[i]);
           channelObject.set(F("Hz"),statRecord.accum2[i]);
         }
+        /*
         else if(inputChannel[i]->_type == channelTypePower){
           if(statRecord.accum1[i] > -2 && statRecord.accum1[i] < 2) statRecord.accum1[i] = 0;
           channelObject.set(F("Watts"),String(statRecord.accum1[i],0));
@@ -419,6 +420,7 @@ void handleStatus(){
             channelObject.set(F("reversed"),true);
           }
         }
+        */
         channelArray.add(channelObject);
       }
     }
@@ -499,7 +501,7 @@ void handleVcal(){
   DynamicJsonBuffer jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
   int channel = server.arg(F("channel")).toInt();
-  float Vrms = sampleVoltage(channel, server.arg("cal").toFloat());
+  float Vrms = sampleTemperature(channel, server.arg("cal").toFloat());
   root.set("vrms",Vrms);
   String response = "";
   root.printTo(response);
@@ -587,14 +589,14 @@ void handleGetFeedList(){
   JsonArray& array = jsonBuffer.createArray();
   for(int i=0; i<maxInputs; i++){
     if(inputChannel[i]->isActive()){
-      if(inputChannel[i]->_type == channelTypeVoltage){
-        JsonObject& voltage = jsonBuffer.createObject();
-        voltage["id"] = String("IV") + String(inputChannel[i]->_name);
-        voltage["tag"] = F("Voltage");
-        voltage["name"] = inputChannel[i]->_name;
-        array.add(voltage);
+      if(inputChannel[i]->_type == channelTypeTemperature){
+        JsonObject& Temperature = jsonBuffer.createObject();
+        Temperature["id"] = String("IV") + String(inputChannel[i]->_name);
+        Temperature["tag"] = F("Temperature");
+        Temperature["name"] = inputChannel[i]->_name;
+        array.add(Temperature);
       } 
-      else
+/*      else
         if(inputChannel[i]->_type == channelTypePower){
         JsonObject& power = jsonBuffer.createObject();
         power["id"] = String("IP") + String(inputChannel[i]->_name);
@@ -608,6 +610,8 @@ void handleGetFeedList(){
         array.add(energy);
       }
     }
+ */
+    }   
   }
   trace(T_WEB,18);
   Script* script = outputs->first();
@@ -616,11 +620,11 @@ void handleGetFeedList(){
     if(String(script->name()).indexOf(' ') == -1){
       String units = script->getUnits();
       if(units.equalsIgnoreCase("volts")){
-        JsonObject& voltage = jsonBuffer.createObject();
-        voltage["id"] = String("OV") + String(script->name());
-        voltage["tag"] = F("Voltage");
-        voltage["name"] = script->name();
-        array.add(voltage);
+        JsonObject& Temperature = jsonBuffer.createObject();
+        Temperature["id"] = String("OV") + String(script->name());
+        Temperature["tag"] = F("Temperature");
+        Temperature["name"] = script->name();
+        array.add(Temperature);
       } 
       else if(units.equalsIgnoreCase("watts")) {
         JsonObject& power = jsonBuffer.createObject();

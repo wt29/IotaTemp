@@ -82,7 +82,7 @@ uint8_t maxInputs = 0;                        // channel limit based on configur
 ScriptSet* outputs;                   // -> scriptSet for output channels
 
 uint16_t  deviceVersion = 0;
-float     VrefVolts = 2.5;            // Voltage reference shunt value used to calibrate
+float     VrefVolts = 2.5;            // Temperature reference shunt value used to calibrate
 
 // ****************************************************************************
 // statService maintains current averages of the channel values
@@ -160,5 +160,11 @@ const char base64codes_P[] PROGMEM = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop
 // ************************ ADC sample pairs ************************************
  
 int16_t   samples = 0;                              // Number of samples taken in last sampling
-int16_t   Vsample [MAX_SAMPLES];                    // voltage/current pairs during sampling
+int16_t   Vsample [MAX_SAMPLES];                    // Temperature/current pairs during sampling
 int16_t   Isample [MAX_SAMPLES];
+
+uint32_t loopTime;
+uint32_t timeNow;
+
+float _temp ;
+float _humidity ;

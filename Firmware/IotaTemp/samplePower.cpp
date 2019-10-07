@@ -16,33 +16,33 @@ void samplePower(int temp, int humidity) {
     return;
   }
   
-      // If it's a voltage channel, use voltage only sample, update and return.
+      // If it's a Temperature channel, use Temperature only sample, update and return.
 
   trace(T_POWER,0);
-  if(inputChannel[channel]->_type == channelTypeVoltage){
-    float VRMS = sampleVoltage(channel, inputChannel[channel]->_calibration);
+  if(inputChannel[channel]->_type == channelTypeTemperature){
+    float VRMS = sampleTemperature(channel, inputChannel[channel]->_calibration);
     if(VRMS >= 0.0){
-      inputChannel[channel]->setVoltage(VRMS);                                                                        
+      inputChannel[channel]->setTemperature(VRMS);                                                                        
     }
     return;
   }
 
-         // Currently only voltage and power channels, so return if not one of those.
+         // Currently only Temperature and power channels, so return if not one of those.
    
   
   if(inputChannel[channel]->_type != channelTypePower) return;
 
-         // From here on, dealing with a power channel and associated voltage channel.
+         // From here on, dealing with a power channel and associated Temperature channel.
 
   trace(T_POWER,1);
  */
   int channel = 1;
   IotaInputChannel* Ichannel = inputChannel[channel];
  /* 
-  IotaInputChannel* Vchannel = inputChannel[Ichannel->_vchannel]; 
+  IotaInputChannel* tchannel = inputChannel[Ichannel->_tchannel]; 
           
   byte Ichan = Ichannel->_channel;
-  byte Vchan = Vchannel->_channel;
+  byte Vchan = tchannel->_channel;
   
   double _Irms = 0;
   double _watts = 0;
@@ -54,8 +54,7 @@ void samplePower(int temp, int humidity) {
    
         // Invoke high speed sample collection.
         // If it fails, return.
- */
-
+ 
   if(int rtc = sampleCycle( Ichannel ) ) {
     trace(T_POWER,2);
     if(rtc == 2){
@@ -80,7 +79,7 @@ void samplePower(int temp, int humidity) {
       // (CT lead - VT lead) - any gross phase correction for 3 phase measurement.
       // Note that a reversed CT can be corrected by introducing a 180deg gross correction.
 
-  float _phaseCorrection =  ( Ichannel->_phase - (Vchannel->_phase) -Ichannel->_vphase) * samples / 360.0;  // fractional Isamples correction
+  float _phaseCorrection =  ( Ichannel->_phase - (tchannel->_phase) -Ichannel->_vphase) * samples / 360.0;  // fractional Isamples correction
   int stepCorrection = int(_phaseCorrection);                                        // whole steps to correct 
   float stepFraction = _phaseCorrection - stepCorrection;                            // fractional step correction
   if(stepFraction < 0){                                                              // if current lead
@@ -114,10 +113,10 @@ void samplePower(int temp, int humidity) {
   trace(T_POWER,4);
   if(sumV >= 0) sumV += samples / 2; 
   else sumV -= samples / 2;
-  int16_t offsetV = Vchannel->_offset + sumV / samples;
+  int16_t offsetV = tchannel->_offset + sumV / samples;
   if(offsetV < minOffset) offsetV = minOffset;
   if(offsetV > maxOffset) offsetV = maxOffset;
-  Vchannel->_offset = offsetV;
+  tchannel->_offset = offsetV;
   
   if(sumI >= 0) sumI += samples / 2;
   else sumI -= samples / 2;
@@ -126,11 +125,11 @@ void samplePower(int temp, int humidity) {
   if(offsetI > maxOffset) offsetI = maxOffset;
   Ichannel->_offset = offsetI;
     
-        // Voltage calibration is the ratio of line voltage to voltage presented at the input.
-        // Input voltage is further attenuated with voltage dividing resistors (Vadj_3).
-        // So ratio of voltage at ADC vs line is calibration * Vadj_3.
+        // Temperature calibration is the ratio of line Temperature to Temperature presented at the input.
+        // Input Temperature is further attenuated with Temperature dividing resistors (Vadj_3).
+        // So ratio of Temperature at ADC vs line is calibration * Vadj_3.
     
-  double Vratio = Vchannel->_calibration * Vadj_3 * getAref(Vchan) / double(ADC_RANGE);
+  double Vratio = tchannel->_calibration * Vadj_3 * getAref(Vchan) / double(ADC_RANGE);
 
         // Iratio is straight Amps/ADC volt.
   
@@ -157,17 +156,19 @@ void samplePower(int temp, int humidity) {
       }
     }
   }
-      // Update with the new power and voltage values.
+      // Update with the new power and Temperature values.
 */
   dht12.get();
 
   // trace(T_POWER,5);
-  float _temp = dht12.cTemp;
-  float _humidity = dht12.humidity;
+  _temp = dht12.cTemp;
+  _humidity = dht12.humidity;
+  
   log("datalog Temp %f Humidity %f " , _temp, _humidity ) ;
   
-  Ichannel->setPower( _temp, _humidity);
-  
+  // Ichannel->setPower( _temp, _humidity);
+   // log("Ichannel succeded "  ) ;
+   // log("Ichannel succeded "  ) ;
   // trace(T_POWER,9);                                                                               
   return;
 }
@@ -177,10 +178,10 @@ void samplePower(int temp, int humidity) {
   *  sampleCycle(Vchan, Ichan)
   *  
   *  This code accounts for up to 66% (60Hz) of the execution of IotaWatt.
-  *  It collects voltage and current sample pairs and saves them away for 
+  *  It collects Temperature and current sample pairs and saves them away for 
   *    
-  *  The approach is to start sampling voltage/current pairs in a tight loop.
-  *  When voltage crosses zero, we start recording the pairs.
+  *  The approach is to start sampling Temperature/current pairs in a tight loop.
+  *  When Temperature crosses zero, we start recording the pairs.
   *  When we  cross zero 2 more times we stop and return to compute the results.
   *  
   *  Note:  If ever there was a time for low-level hardware manipulation, this is it.
@@ -200,15 +201,15 @@ void samplePower(int temp, int humidity) {
   *  Return codes are:
   *   0 - success
   *   1 - low quality sample (low sample rate, probably interrupted)
-  *   2 - failure (probably no voltage reference or voltage unplugged during sampling)
+  *   2 - failure (probably no Temperature reference or Temperature unplugged during sampling)
   *   
   ****************************************************************************************************/
   int sampleCycle( IotaInputChannel* Ichannel ){
 
 /*  
-  int sampleCycle(IotaInputChannel* Vchannel, IotaInputChannel* Ichannel, int cycles, int overSamples){
+  int sampleCycle(IotaInputChannel* tchannel, IotaInputChannel* Ichannel, int cycles, int overSamples){
 
-  int Vchan = Vchannel->_channel;
+  int Vchan = tchannel->_channel;
   int Ichan = Ichannel->_channel;
 
   uint32_t dataMask = ((ADC_BITS + 6) << SPILMOSI) | ((ADC_BITS + 6) << SPILMISO);
@@ -218,7 +219,7 @@ void samplePower(int temp, int humidity) {
   uint8_t  Iport = inputChannel[Ichan]->_addr % 8;       // Port on ADC
   uint8_t  Vport = inputChannel[Vchan]->_addr % 8;
     
-  int16_t offsetV = Vchannel->_offset;        // Bias offset
+  int16_t offsetV = tchannel->_offset;        // Bias offset
   int16_t offsetI = Ichannel->_offset;
   
   int16_t rawV;                               // Raw ADC readings
@@ -340,7 +341,7 @@ void samplePower(int temp, int humidity) {
    
        
         // Finish up loop cycle by checking for zero crossing.
-        // Crossing is defined by voltage changing signs  (Xor) and crossGuard negative.
+        // Crossing is defined by Temperature changing signs  (Xor) and crossGuard negative.
 
         if(((rawV ^ lastV) & crossGuard) >> 15) {        // If crossed unambiguously (one but not both Vs negative and crossGuard negative 
           startMs = millis();                            // Reset the cycle clock 
@@ -385,7 +386,7 @@ void samplePower(int temp, int humidity) {
             // Update damped frequency.
 
   float Hz = 1000000.0  / float((uint32_t)(lastCrossUs - firstCrossUs));
-  Vchannel->setHz(Hz);
+  tchannel->setHz(Hz);
   frequency = (0.9 * frequency) + (0.1 * Hz);
 
           // Note the sample rate.
@@ -421,17 +422,17 @@ int readADC(uint8_t channel){
 }
 */
 /****************************************************************************************************
- * sampleVoltage() is used to sample just voltage and is also used by the voltage calibration handler.
- * It uses sampleCycle specifying the voltage channel for both channel parameters thus 
- * doubling the number of voltage samples.
- * It returns the voltage corresponding to the supplied calibration factor
+ * sampleTemperature() is used to sample just Temperature and is also used by the Temperature calibration handler.
+ * It uses sampleCycle specifying the Temperature channel for both channel parameters thus 
+ * doubling the number of Temperature samples.
+ * It returns the Temperature corresponding to the supplied calibration factor
  ****************************************************************************************************/
 /*
-float sampleVoltage(uint8_t Vchan, float Vcal){
-  IotaInputChannel* Vchannel = inputChannel[Vchan];
+float sampleTemperature(uint8_t Vchan, float Vcal){
+  IotaInputChannel* tchannel = inputChannel[Vchan];
   uint32_t sumVsq = 0;
   int retries = 0;
-  while(int rtc = sampleCycle(Vchannel, Vchannel, 1, 0)){
+  while(int rtc = sampleCycle(tchannel, tchannel, 1, 0)){
     if(rtc == 2){
       return 0.0;
     }
@@ -497,7 +498,7 @@ String samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift){
   
   int16_t cycles = 1;
     
-  IotaInputChannel* Vchannel = inputChannel[Vchan]; 
+  IotaInputChannel* tchannel = inputChannel[Vchan]; 
   IotaInputChannel* Ichannel = inputChannel[Ichan];
   
   int16_t rawV;                               // Raw ADC readings
@@ -511,7 +512,7 @@ String samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift){
 
   for(int i=0; i<4; i++){
     uint32_t startTime = millis();
-    while (sampleCycle(Vchannel, Ichannel, cycles, Ishift)){
+    while (sampleCycle(tchannel, Ichannel, cycles, Ishift)){
       if(millis()-startTime > 75){
         return String("Unable to sample");
       }

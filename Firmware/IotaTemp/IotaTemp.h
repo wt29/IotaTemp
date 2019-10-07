@@ -136,7 +136,7 @@ extern traceUnion traceEntry;
 
       // Identifiers used to construct id numbers for graph API
 
-#define QUERY_VOLTAGE  1
+#define QUERY_Temperature  1
 #define QUERY_POWER  2
 #define QUERY_ENERGY 3
 #define QUERY_OTHER 4
@@ -173,6 +173,12 @@ extern traceUnion traceEntry;
 extern uint32_t lastCrossMs;           // Timestamp at last zero crossing (ms) (set in samplePower)
 extern uint32_t nextCrossMs;           // Time just before next zero crossing (ms) (computed in Loop)
 
+extern uint32_t timeNow;
+extern uint32_t loopTime;
+
+extern float _temp;
+extern float _humidity;
+
 enum priorities: byte {priorityLow=3, priorityMed=2, priorityHigh=1};
 
 struct serviceBlock {                  // Scheduler/Dispatcher list item (see comments in Loop)
@@ -189,16 +195,16 @@ extern serviceBlock* serviceQueue;     // Head of ordered list of services
       // Define maximum number of input channels.
       // Create pointer for array of pointers to incidences of input channels
       // Initial values here are defaults for IotaWatt 2.1.
-      // VrefVolts is the declared value of the voltage reference shunt,
+      // VrefVolts is the declared value of the Temperature reference shunt,
       // Can be specified in config.device.aref
-      // Voltage adjustments are the values for AC reference attenuation in IotaWatt 2.1.
+      // Temperature adjustments are the values for AC reference attenuation in IotaWatt 2.1.
 
 #define MAXINPUTS 1                           // Compile time input channels, can't be changed easily 
 extern IotaInputChannel* *inputChannel;       // -->s to incidences of input channels (maxInputs entries)
 extern uint8_t  maxInputs;                    // channel limit based on configured hardware (set in Config)
-extern float    VrefVolts;                    // Voltage reference shunt value used to calibrate
+extern float    VrefVolts;                    // Temperature reference shunt value used to calibrate
                                               // the ADCs. (can be specified in config.device.refvolts)
-#define Vadj_3 13                             // Voltage channel attenuation ratio
+#define Vadj_3 13                             // Temperature channel attenuation ratio
 
       // ****************************************************************************
       // statService maintains current averages of the channel values
@@ -266,7 +272,7 @@ extern const char     base64codes_P[];
 
 #define MAX_SAMPLES 900
 extern int16_t samples;                           // Number of samples taken in last sampling
-extern int16_t Vsample [MAX_SAMPLES];             // voltage/current pairs during sampling
+extern int16_t Vsample [MAX_SAMPLES];             // Temperature/current pairs during sampling
 extern int16_t Isample [MAX_SAMPLES];
 
       // ************************ Declare global functions
@@ -274,6 +280,7 @@ void      setup();
 void      loop();
 void      trace(const uint8_t module, const uint8_t id, const uint8_t det=0); 
 void      logTrace(void);
+void      TFTUpdate(void);
 
 void      NewService(uint32_t (*serviceFunction)(struct serviceBlock*), const uint8_t taskID=0);
 void      AddService(struct serviceBlock*);

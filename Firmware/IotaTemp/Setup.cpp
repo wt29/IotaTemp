@@ -182,6 +182,9 @@ tft.initR(INITR_144GREENTAB);
   NewService(dataLog, T_datalog);
   NewService(historyLog, T_history);
   log("Services    started");
+ 
+  loopTime = 30000;
+  timeNow = millis() - loopTime + 1000 ;     // Should force it to poll and display on init
   
 }  // setup()
 /***************************************** End of Setup **********************************************/

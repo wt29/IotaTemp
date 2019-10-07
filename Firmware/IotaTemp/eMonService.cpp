@@ -282,12 +282,12 @@ uint32_t EmonService(struct serviceBlock* _serviceBlock){
             if( ! _input){
               reqData.write(",null");
             }
-            else if(_input->_type == channelTypeVoltage){
+            else if(_input->_type == channelTypeTemperature){
               reqData.printf(",%.1f", value1);
             }
-            else if(_input->_type == channelTypePower){
-              reqData.printf(",%.0f", value1);
-            }
+//            else if(_input->_type == channelTypePower){
+//              reqData.printf(",%.0f", value1);
+//            }
             else{
               reqData.printf(",%.0f", value1);
             }

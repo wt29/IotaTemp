@@ -172,16 +172,16 @@ bool configDevice(const char* JsonStr){
   }
 
         // Override V3 defaults if V2 device
-
+/*
   if(deviceVersion == 2){
     for(int i=0; i<MIN(maxInputs,device["chanaddr"].size()); i++){
       inputChannel[i]->_addr = int(i / 7) * 8 + i % 7;
       inputChannel[i]->_aRef = int(i / 7) * 8 + 7;
     }
   }
-
+*/
         // Override all defaults with user specification
- 
+ /*
   if(device.containsKey("chanaddr")){
     for(int i=0; i<MIN(maxInputs,device["chanaddr"].size()); i++){
       inputChannel[i]->_addr = device["chanaddr"][i].as<unsigned int>();
@@ -200,6 +200,8 @@ bool configDevice(const char* JsonStr){
       inputChannel[i]->_burden = device["burden"][i].as<float>();
     }
   }
+*/
+
 }
 
 //********************************** configInputs ***********************************************
@@ -209,8 +211,8 @@ bool configInputs(const char* JsonStr){
   if( ! JsonInputs.success()){
     log("inputs: Json parse failed");
   }
-  phaseTableEntry* phaseTable = nullptr;
-  buildPhaseTable(&phaseTable);
+//  phaseTableEntry* phaseTable = nullptr;
+//  buildPhaseTable(&phaseTable);
   for(int i=0; i<MIN(maxInputs,JsonInputs.size()); i++) {
     if(JsonInputs[i].is<JsonObject>()){
       JsonObject& input = JsonInputs[i].as<JsonObject&>();
@@ -222,30 +224,18 @@ bool configInputs(const char* JsonStr){
       inputChannel[i]->_name = charstar(input["name"].as<char*>());
       delete inputChannel[i]->_model;
       inputChannel[i]->_model = charstar(input["model"].as<char*>());
-      inputChannel[i]->_calibration = input["cal"].as<float>();
-      inputChannel[i]->_phase = input["phase"].as<float>();
-      inputChannel[i]->_vphase = input["vphase"].as<float>();
-      inputChannel[i]->_vchannel = input.containsKey("vref") ? input["vref"].as<int>() : 0;
+ //     inputChannel[i]->_type = charstar( input["type"].as<char*>());
+//      inputChannel[i]->_phase = input["phase"].as<float>();
+//      inputChannel[i]->_vphase = input["vphase"].as<float>();
+      inputChannel[i]->_tchannel = input.containsKey("vref") ? input["vref"].as<int>() : 0;
       inputChannel[i]->active(true);
       String type = input["type"];
       String _hashName = hashName(input["model"].as<char*>());
-      phaseTableEntry* entry = phaseTable;
-      while(entry){
-        if(memcmp(entry->modelHash, _hashName.c_str(), 8) == 0){
-          inputChannel[i]->_phase = entry->value;
-          break;
-        }
-        entry = entry->next;
+
+     if(type == "DHT12") {
+        inputChannel[i]->_type = channelTypeTemperature;
+        inputChannel[i]->_tchannel = i;
       }
-      if(type == "VT") {
-        inputChannel[i]->_type = channelTypeVoltage;
-        inputChannel[i]->_vchannel = i;
-      }
-      else if (type == "CT"){
-        inputChannel[i]->_type = channelTypePower;
-        inputChannel[i]->_vchannel = input["vchan"].as<int>();
-        inputChannel[i]->_signed = input["signed"] | false;
-      }  
       else{
         log("unsupported input type: %s", type.c_str());
       } 
@@ -254,7 +244,7 @@ bool configInputs(const char* JsonStr){
       inputChannel[i]->reset();
     }
   }
-  delete phaseTable;
+  // delete phaseTable;
   return true;
 }
 
