@@ -280,7 +280,8 @@ int IotaLog::write (IotaLogRecord* callerRecord){
 		_fileSize += sizeof(IotaLogRecord);
 		_entries++;
   }
-  //Serial.println("Writing");
+  Serial.println("Writing");
+  // log(IotaLogRecord* callerRecord);
   IotaFile.write((char*)callerRecord, sizeof(IotaLogRecord));
   IotaFile.close();
 	IotaFile = SD.open(_path, FILE_READ);	 

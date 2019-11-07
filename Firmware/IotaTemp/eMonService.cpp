@@ -357,6 +357,7 @@ uint32_t EmonService(struct serviceBlock* _serviceBlock){
       trace(T_Emon,7);
       request->send(&reqData, reqData.available());
       state = waitPost;
+      // log( reqData );
       return 1;
     } 
 

@@ -164,7 +164,7 @@ void samplePower(int temp, int humidity) {
   _temp = dht12.cTemp;
   _humidity = dht12.humidity;
   
-  log("datalog Temp %f Humidity %f " , _temp, _humidity ) ;
+  log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
   
   // Ichannel->setPower( _temp, _humidity);
    // log("Ichannel succeded "  ) ;

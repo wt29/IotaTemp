@@ -127,10 +127,15 @@ tft.initR(INITR_144GREENTAB);
   WiFi.setAutoConnect(true);
   WiFi.hostname();
   WiFi.begin();
+  tft.setTextSize(2);
+  tft.setCursor(0,0);
+  tft.setTextColor(ST7735_BLUE);
+  tft.println( "Connecting" );
   uint32_t autoConnectTimeout = millis() + 3000UL;
   while(WiFi.status() != WL_CONNECTED){
     if(millis() > autoConnectTimeout){
       setLedCycle("R.G.G...");
+      tft.print(".");    			// Show that it is trying
       wifiManager.setDebugOutput(false);
       wifiManager.setConfigPortalTimeout(180);
       String ssid = "iota" + String(ESP.getChipId());
