@@ -163,7 +163,7 @@ int16_t   samples = 0;                              // Number of samples taken i
 int16_t   Vsample [MAX_SAMPLES];                    // Temperature/current pairs during sampling
 int16_t   Isample [MAX_SAMPLES];
 
-uint32_t loopTime;
+uint32_t loopTime = 2000;
 uint32_t timeNow;
 
 float _temp ;
