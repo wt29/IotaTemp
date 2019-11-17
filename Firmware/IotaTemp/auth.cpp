@@ -1,6 +1,6 @@
 #include "IotaTemp.h"
 #include <libb64/cencode.h>
-#include "detail/mimetable.h"
+// #include "detail/mimetable.h"
 #include "auth.h"
 
 static const char AUTHORIZATION_HEADER[] PROGMEM = "Authorization";

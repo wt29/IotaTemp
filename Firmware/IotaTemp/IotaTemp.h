@@ -1,5 +1,5 @@
-#ifndef IotaWatt_h
-#define IotaWatt_h
+#ifndef IotaTemp_h
+#define IotaTemp_h
 
    /***********************************************************************************
     IotaWatt Electric Power Monitor System
@@ -70,8 +70,7 @@
 #include "Emonservice.h"
 #include "auth.h"
 
-
-      // Declare instances of major classes
+// Declare instances of major classes
 
 extern WiFiClient WifiClient;
 extern WiFiManager wifiManager;
@@ -90,7 +89,7 @@ extern Adafruit_ST7735 tft;
 #define MS_PER_HOUR   3600000UL
 #define SEVENTY_YEAR_SECONDS  2208988800UL
 
-      // Declare filename Strings of system files.
+// Declare filename Strings of system files.
 
 extern char* deviceName;
 extern const char* IotaLogFile;
@@ -99,7 +98,7 @@ extern const char* IotaMsgLog;
 extern const char*  ntpServerName;
 extern uint16_t deviceVersion;
 
-        // Define the hardware pins
+// Define the hardware pins
 
 /* 
 
