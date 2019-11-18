@@ -5,7 +5,7 @@
 	"device": {
 		"name": "IotaTemp",
 		"version": 3,
-		"channels": "1"
+		"channels": "2"
 	},
 	"inputs": [
 		{
@@ -14,7 +14,12 @@
 			"type": "DHT12",
 			"model": "DHT12"
 		},
-		null
+		{
+			"channel": 1,
+			"name": "Humidity",
+			"type": "DHT12",
+			"model": "DHT12"
+		}
 	],
 	"outputs": [],
 	"server": {
@@ -30,78 +35,13 @@
 		"outputs": [
 			{
 				"name": "1",
-				"units": "Watts",
+				"units": "Degrees",
 				"script": "@0"
 			},
 			{
 				"name": 2,
 				"script": "@1",
-				"units": ""
-			},
-			{
-				"name": 3,
-				"script": "@2",
-				"units": ""
-			},
-			{
-				"name": 4,
-				"script": "@3",
-				"units": ""
-			},
-			{
-				"name": 5,
-				"script": "@4",
-				"units": ""
-			},
-			{
-				"name": 6,
-				"script": "@5",
-				"units": ""
-			},
-			{
-				"name": 7,
-				"script": "@6",
-				"units": ""
-			},
-			{
-				"name": 8,
-				"script": "@7",
-				"units": ""
-			},
-			{
-				"name": 9,
-				"script": "@8",
-				"units": ""
-			},
-			{
-				"name": 10,
-				"script": "@9",
-				"units": ""
-			},
-			{
-				"name": 11,
-				"script": "@10",
-				"units": ""
-			},
-			{
-				"name": 12,
-				"script": "@11",
-				"units": ""
-			},
-			{
-				"name": 13,
-				"script": "@12",
-				"units": ""
-			},
-			{
-				"name": 14,
-				"script": "@13",
-				"units": ""
-			},
-			{
-				"name": 15,
-				"script": "@14",
-				"units": ""
+				"units": "% Humidity"
 			}
 		],
 		"userid": "",
