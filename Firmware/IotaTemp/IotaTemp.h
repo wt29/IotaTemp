@@ -199,7 +199,7 @@ extern serviceBlock* serviceQueue;     // Head of ordered list of services
       // Can be specified in config.device.aref
       // Temperature adjustments are the values for AC reference attenuation in IotaWatt 2.1.
 
-#define MAXINPUTS 1                           // Compile time input channels, can't be changed easily 
+#define MAXINPUTS 2                           // Compile time input channels, can't be changed easily 
 extern IotaInputChannel* *inputChannel;       // -->s to incidences of input channels (maxInputs entries)
 extern uint8_t  maxInputs;                    // channel limit based on configured hardware (set in Config)
 extern float    VrefVolts;                    // Temperature reference shunt value used to calibrate
