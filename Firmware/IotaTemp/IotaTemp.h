@@ -151,7 +151,8 @@ extern traceUnion traceEntry;
 #define T_SETUP 6          // Setup
 #define T_influx 7         // influxDB
 #define T_SAMP 8           // sampleCycle
-#define T_POWER 9          // Sample Power
+//#define T_POWER 9          // Sample Power
+#define T_TEMP 9          // Sample Power
 #define T_WEB 10           // (30)Web server handlers
 #define T_CONFIG 11        //  Get Config
 #define T_encryptEncode 12 //  base64encode and encryptData in EmonService
