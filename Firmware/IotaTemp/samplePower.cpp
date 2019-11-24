@@ -4,9 +4,9 @@
   *  samplePower()  Sample a channel.
   *  
   ****************************************************************************************************/
-// void samplePower(int channel, int overSample){
+void samplePower(int channel, int overSample){
 
-void samplePower(int temp, int humidity) {
+// void samplePower(int temp, int humidity) {
   static uint32_t trapTime = 0;
   uint32_t timeNow = millis();
 
@@ -36,7 +36,7 @@ void samplePower(int temp, int humidity) {
 
   trace(T_POWER,1);
  */
-  int channel = 1;
+  // int channel = 1;
   IotaInputChannel* Ichannel = inputChannel[channel];
  /* 
   IotaInputChannel* tchannel = inputChannel[Ichannel->_tchannel]; 
@@ -166,7 +166,8 @@ void samplePower(int temp, int humidity) {
   
   log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
   
-  // Ichannel->setPower( _temp, _humidity);
+  // Ichannel->setTemperature( _temp );
+  // Ichannel->setHumidity( _humidity);
    // log("Ichannel succeded "  ) ;
    // log("Ichannel succeded "  ) ;
   // trace(T_POWER,9);                                                                               
