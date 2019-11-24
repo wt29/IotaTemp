@@ -368,8 +368,8 @@ void samplePower(int temp, int humidity) {
   } while(crossCount < crossLimit || crossGuard > 0); 
 
 */
-  int temp;
-  *VsamplePtr = temp;       
+ // int temp;
+ // *VsamplePtr = temp;       
                                 
  // *IsamplePtr = (rawI + lastI) >> 1;
  /*  

@@ -50,11 +50,10 @@ int IotaLog::begin (const char* path ){
 		_entries = _fileSize / sizeof(IotaLogRecord);
   }
 
-					// If file has not wrapped and serials are off,
-					// manufacture new n and n-1 records from n-2.
+ // If file has not wrapped and serials are off,
+ // manufacture new n and n-1 records from n-2.
 
-	if(_entries >= 3 &&	_lastSerial - _firstSerial + 1 != _entries &&
-		 _firstSerial != _lastSerial + 1){
+	if(_entries >= 3 &&	_lastSerial - _firstSerial + 1 != _entries &&  _firstSerial != _lastSerial + 1){
 		IotaLogRecord* record = new IotaLogRecord;
 		IotaFile.close();
 		IotaFile = SD.open(_path, FILE_WRITE);	 
@@ -268,8 +267,9 @@ int IotaLog::write (IotaLogRecord* callerRecord){
 		return 1;
   }
   callerRecord->serial = ++_lastSerial;
-	IotaFile.close();
-	IotaFile = SD.open(_path, FILE_WRITE);	 
+  IotaFile.close();
+  IotaFile = SD.open(_path, FILE_WRITE);	 
+  
   if(_wrap || _fileSize >= _maxFileSize){
 		//Serial.print("seeking: "); Serial.println(_wrap);
 		IotaFile.seek(_wrap);
@@ -284,7 +284,7 @@ int IotaLog::write (IotaLogRecord* callerRecord){
   // log(IotaLogRecord* callerRecord);
   IotaFile.write((char*)callerRecord, sizeof(IotaLogRecord));
   IotaFile.close();
-	IotaFile = SD.open(_path, FILE_READ);	 
+  IotaFile = SD.open(_path, FILE_READ);	 
 
 		  // For backward compatability during transition, 
 		  // keep up the index file.
