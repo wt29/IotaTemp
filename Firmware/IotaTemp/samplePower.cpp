@@ -168,13 +168,17 @@ void samplePower(int channel, int overSample){
   _temp = dht12.cTemp;
   _humidity = dht12.humidity;
   
-  log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
-  
-  tchannel->setTemperature( _temp );
-  hchannel->setHumidity( _humidity);
+  // log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
+  Serial.println( channel );
+  if (channel = 0) {
+    tchannel->setTemperature( _temp );
+  }
+  else {
+    tchannel->setTemperature( _humidity );
+  }
    // log("Ichannel succeded "  ) ;
    // log("Ichannel succeded "  ) ;
-  // trace(T_POWER,9);                                                                               
+  //trace(T_POWER,9);                                                                               
   return;
 }
 
@@ -547,5 +551,3 @@ String samplePhase(uint8_t Vchan, uint8_t Ichan, uint16_t Ishift){
 }
 
 */
-
-

@@ -12,36 +12,46 @@ void loop()
  ******************************************************************************/
 
   // setLedState();
-/*
 
-IotaTemp doesn't require this
-  // ------- If AC zero crossing approaching, go sample a channel.
+
+// IotaTemp doesn't require this
+// ------- If AC zero crossing approaching, go sample a channel.
+
   static int lastChannel = 0;
-  if((uint32_t)(millis() - lastCrossMs) >= (430 / int(frequency))){
+    // if((uint32_t)(millis() - lastCrossMs) >= (430 / int(frequency))){
+  // lastCrossMs = millis();
+  // Serial.println(  lastCrossMs );
+  if( millis() >= (lastCrossMs + 60000 )){
+    TFTUpdate();
     trace(T_LOOP,1,lastChannel);
     int nextChannel = (lastChannel + 1) % maxInputs;
+//    log( "Millis  %f  NextChannel %f", millis(), nextChannel );
+// Serial.println( nextChannel ) ;
     while( (! inputChannel[nextChannel]->isActive()) && nextChannel != lastChannel){
       nextChannel = ++nextChannel % maxInputs;
     }
     ESP.wdtFeed();
     trace(T_LOOP,2,nextChannel);
-    // samplePower(nextChannel, 0);
+  
+    samplePower(nextChannel, 0);
     trace(T_LOOP,2);
-    nextCrossMs = lastCrossMs + 490 / int(frequency);
+    lastCrossMs = millis();
+    // nextCrossMs = lastCrossMs + 490 / int(frequency);
     lastChannel = nextChannel;
   }
-*/
+
   // --------- Give web server a shout out.
   //           serverAvailable will be false if there is a request being serviced by
   //           an Iota SERVICE. (GetFeedData)
  
   // This, theoretically should sample the DHT
+/*
   if ( ( millis() - timeNow ) > loopTime ) {
    timeNow = millis();
    // log("Ready to sample power");
    samplePower(0, 0);
-   TFTUpdate();
   }
+*/
   yield();
   ESP.wdtFeed();
   trace(T_LOOP,3);
