@@ -4,20 +4,21 @@
   *  samplePower()  Sample a channel.
   *  
   ****************************************************************************************************/
-// void samplePower(int channel, int overSample){
+void samplePower(int channel, int overSample){
 
-void samplePower(int temp, int humidity) {
+// void samplePower(int temp, int humidity) {
   static uint32_t trapTime = 0;
   uint32_t timeNow = millis();
 
-  /*
-  trace(T_POWER,0,channel);
+  
+  trace(T_TEMP, 0, channel );
   if( ! inputChannel[channel]->isActive()){
     return;
   }
   
       // If it's a Temperature channel, use Temperature only sample, update and return.
 
+/*
   trace(T_POWER,0);
   if(inputChannel[channel]->_type == channelTypeTemperature){
     float VRMS = sampleTemperature(channel, inputChannel[channel]->_calibration);
@@ -27,22 +28,23 @@ void samplePower(int temp, int humidity) {
     return;
   }
 
-         // Currently only Temperature and power channels, so return if not one of those.
+*/
+         // Currently only Temperature and associated humidity channels, so return if not one of those.
    
   
-  if(inputChannel[channel]->_type != channelTypePower) return;
+  if(inputChannel[channel]->_type != channelTypeTemperature) return;
 
-         // From here on, dealing with a power channel and associated Temperature channel.
+         // From here on, dealing with a Temp channel and associated Humidity channel.
 
-  trace(T_POWER,1);
- */
-  int channel = 1;
-  IotaInputChannel* Ichannel = inputChannel[channel];
- /* 
-  IotaInputChannel* tchannel = inputChannel[Ichannel->_tchannel]; 
+  trace(T_TEMP,1);
+ 
+  // int channel = 1;
+  IotaInputChannel* tchannel = inputChannel[channel];
+  
+  IotaInputChannel* hchannel = inputChannel[tchannel->_tchannel]; 
           
-  byte Ichan = Ichannel->_channel;
-  byte Vchan = tchannel->_channel;
+  byte Tchan = tchannel->_channel;
+  byte Hchan = hchannel->_channel;
   
   double _Irms = 0;
   double _watts = 0;
@@ -55,10 +57,12 @@ void samplePower(int temp, int humidity) {
         // Invoke high speed sample collection.
         // If it fails, return.
  
-  if(int rtc = sampleCycle( Ichannel ) ) {
-    trace(T_POWER,2);
+  if(int rtc = sampleCycle( tchannel ) ) {
+    trace( T_TEMP, 2 );
     if(rtc == 2){
-      Ichannel->setPower(0.0, 0.0);
+//      Tchannel->setTemperature(0.0, 0.0);
+      tchannel->setTemperature( 0.0 );
+      hchannel->setHumidity(0.0);
     }
     return;
   }          
@@ -166,7 +170,8 @@ void samplePower(int temp, int humidity) {
   
   log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
   
-  // Ichannel->setPower( _temp, _humidity);
+  tchannel->setTemperature( _temp );
+  hchannel->setHumidity( _humidity);
    // log("Ichannel succeded "  ) ;
    // log("Ichannel succeded "  ) ;
   // trace(T_POWER,9);                                                                               
@@ -368,8 +373,8 @@ void samplePower(int temp, int humidity) {
   } while(crossCount < crossLimit || crossGuard > 0); 
 
 */
-  int temp;
-  *VsamplePtr = temp;       
+ // int temp;
+ // *VsamplePtr = temp;       
                                 
  // *IsamplePtr = (rawI + lastI) >> 1;
  /*  
