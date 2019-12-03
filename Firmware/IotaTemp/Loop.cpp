@@ -1,5 +1,5 @@
 #include "IotaTemp.h"
-
+int lastChannel = 0;
 void loop()
 {
 /******************************************************************************
@@ -17,7 +17,7 @@ void loop()
 // IotaTemp doesn't require this
 // ------- If AC zero crossing approaching, go sample a channel.
 
-  static int lastChannel = 0;
+  // static int lastChannel = 0;
     // if((uint32_t)(millis() - lastCrossMs) >= (430 / int(frequency))){
   // lastCrossMs = millis();
   // Serial.println(  lastCrossMs );
@@ -25,7 +25,7 @@ void loop()
     TFTUpdate();
     trace(T_LOOP,1,lastChannel);
     int nextChannel = (lastChannel + 1) % maxInputs;
-//    log( "Millis  %f  NextChannel %f", millis(), nextChannel );
+    log( "LastCrossMS  %f  NextChannel %f  LastChannel %f", lastCrossMs, nextChannel, lastChannel );
 // Serial.println( nextChannel ) ;
     while( (! inputChannel[nextChannel]->isActive()) && nextChannel != lastChannel){
       nextChannel = ++nextChannel % maxInputs;

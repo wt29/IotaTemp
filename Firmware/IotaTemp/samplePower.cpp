@@ -167,9 +167,8 @@ void samplePower(int channel, int overSample){
   // trace(T_POWER,5);
   _temp = dht12.cTemp;
   _humidity = dht12.humidity;
-  
-  // log("samplePower Temp %f Humidity %f " , _temp, _humidity ) ;
-  Serial.println( channel );
+  log("Current channel %f " , channel ) ;
+  // Serial.println( channel );
   if (channel = 0) {
     tchannel->setTemperature( _temp );
   }

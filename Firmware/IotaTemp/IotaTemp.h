@@ -173,6 +173,7 @@ extern traceUnion traceEntry;
 
 extern uint32_t lastCrossMs;           // Timestamp at last zero crossing (ms) (set in samplePower)
 extern uint32_t nextCrossMs;           // Time just before next zero crossing (ms) (computed in Loop)
+// extern uint32_t lastChannel;           // Time just before next zero crossing (ms) (computed in Loop)
 
 extern uint32_t timeNow;
 extern uint32_t loopTime;
