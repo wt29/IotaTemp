@@ -78,7 +78,8 @@ uint32_t nextCrossMs = 0;             // Time just before next zero crossing (ms
 
 serviceBlock* serviceQueue;           // Head of active services list in order of dispatch time.       
 IotaInputChannel* *inputChannel;      // -->s to incidences of input channels (maxInputs entries) 
-uint8_t maxInputs = 0;                // channel limit based on configured hardware (set in Config)      
+uint8_t maxInputs = 0
+;                // channel limit based on configured hardware (set in Config)      
 ScriptSet* outputs;                   // -> scriptSet for output channels
 
 uint16_t  deviceVersion = 0;

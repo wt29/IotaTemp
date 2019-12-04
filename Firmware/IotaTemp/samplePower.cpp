@@ -32,7 +32,7 @@ void samplePower(int channel, int overSample){
          // Currently only Temperature and associated humidity channels, so return if not one of those.
    
   
-  if(inputChannel[channel]->_type != channelTypeTemperature) return;
+  // if(inputChannel[channel]->_type != channelTypeTemperature) return;
 
          // From here on, dealing with a Temp channel and associated Humidity channel.
 

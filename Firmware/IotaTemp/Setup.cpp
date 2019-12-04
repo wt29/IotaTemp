@@ -116,7 +116,7 @@ void setup()
 
 authLoadPwds();  
 lastCrossMs = millis() - 10000;
-log("%f",lastCrossMs);
+log("LastCrossMs %f",lastCrossMs);
 
 //******************  Setup the TFT 
 tft.initR(INITR_144GREENTAB);

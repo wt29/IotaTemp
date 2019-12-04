@@ -1,5 +1,6 @@
 #include "IotaTemp.h"
 int lastChannel = 0;
+int nextChannel = 1;
 void loop()
 {
 /******************************************************************************
@@ -24,20 +25,27 @@ void loop()
   if( millis() >= (lastCrossMs + 60000 )){
     TFTUpdate();
     trace(T_LOOP,1,lastChannel);
-    int nextChannel = (lastChannel + 1) % maxInputs;
-    log( "LastCrossMS  %f  NextChannel %f  LastChannel %f", lastCrossMs, nextChannel, lastChannel );
+    //nextChannel = (lastChannel + 1) % maxInputs;
+    if ( nextChannel = 1 ) { 
+      nextChannel = 2;
+       } 
+       else { 
+        nextChannel = 1; 
+        }
+    log( "MaxInputs %f  NextChannel %f  LastChannel %f", maxInputs, nextChannel, lastChannel );
 // Serial.println( nextChannel ) ;
-    while( (! inputChannel[nextChannel]->isActive()) && nextChannel != lastChannel){
-      nextChannel = ++nextChannel % maxInputs;
-    }
+    //while( (! inputChannel[nextChannel]->isActive()) && nextChannel != lastChannel){
+    //  nextChannel = ++nextChannel % maxInputs;
+    //}
     ESP.wdtFeed();
     trace(T_LOOP,2,nextChannel);
+    log( "LastCrossMS  %f  NextChannel %f  LastChannel %f", lastCrossMs, nextChannel, lastChannel );
   
     samplePower(nextChannel, 0);
     trace(T_LOOP,2);
     lastCrossMs = millis();
     // nextCrossMs = lastCrossMs + 490 / int(frequency);
-    lastChannel = nextChannel;
+    // lastChannel = nextChannel;
   }
 
   // --------- Give web server a shout out.
