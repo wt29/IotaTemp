@@ -162,14 +162,16 @@ void samplePower(int channel, int overSample){
   }
       // Update with the new power and Temperature values.
 */
+  log( "Millis before %f", millis() );
   dht12.get();
-
+  log( "Millis after %f", millis() );
+  
   // trace(T_POWER,5);
   _temp = dht12.cTemp;
   _humidity = dht12.humidity;
   log("Current channel %f " , channel ) ;
   // Serial.println( channel );
-  if (channel = 0) {
+  if (channel = 1) {
     tchannel->setTemperature( _temp );
   }
   else {
