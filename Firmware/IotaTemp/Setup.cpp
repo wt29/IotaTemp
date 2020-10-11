@@ -75,7 +75,7 @@ void setup()
       Wire.write((byte)0);
       Wire.endTransmission();
     }
-    SdFile::dateTimeCallback(dateTime);
+   // SdFile::dateTimeCallback(dateTime);
   }
   else {
     log("Real Time Clock not initialized.");
@@ -170,7 +170,7 @@ tft.initR(INITR_144GREENTAB);
    
  //*************************************** Start the web server ****************************
 
-  SdFile::dateTimeCallback(dateTime);
+  // SdFile::dateTimeCallback(dateTime);
   server.on(F("/edit"), HTTP_POST, returnOK, handleFileUpload);
   server.onNotFound(handleRequest);
   const char * headerkeys[] = {"X-configSHA256"};

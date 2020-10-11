@@ -69,6 +69,9 @@
 #include "influxDB.h"
 #include "Emonservice.h"
 #include "auth.h"
+#include "iotalog.h"
+#include "timeServices.h"
+#include "spiffs.h"
 
 // Declare instances of major classes
 
@@ -246,7 +249,9 @@ extern uint16_t   authTimeout;            // Timeout interval of authSession in 
 
       // ****************************** Timing and time data *************************
 #define  SEVENTY_YEAR_SECONDS 2208988800UL
-extern int      localTimeDiff;
+#define  SECONDS_PER_SEVENTY_YEARS 2208988800UL
+extern int32_t  localTimeDiff;                 // Local time Difference in minutes
+extern tzRule*  timezoneRule;                  // Rule for DST 
 extern uint32_t programStartTime;;             // Time program started (UnixTime)
 extern uint32_t timeRefNTP;                    // Last time from NTP server (NTPtime)
 extern uint32_t timeRefMs;                     // Internal MS clock corresponding to timeRefNTP
